@@ -1,0 +1,231 @@
+"use client"
+
+import { motion, useInView } from "framer-motion"
+import { useRef } from "react"
+import Image from "next/image"
+import Link from "next/link"
+import { FlaskConical, Calculator, Globe, Laptop, BookText, Music, Trophy, ArrowRight, Users, Dumbbell, Code, Microscope } from "lucide-react"
+
+const subjects = [
+  {
+    icon: FlaskConical, name: "Natural Sciences", color: "bg-gradient-green",
+    courses: ["Physics", "Chemistry", "Biology", "Agricultural Science"],
+    desc: "Our well-equipped laboratories allow students to explore scientific principles through hands-on experiments, building both knowledge and critical thinking skills.",
+  },
+  {
+    icon: Calculator, name: "Mathematics", color: "bg-gradient-red",
+    courses: ["Mathematics", "Further Mathematics", "Statistics"],
+    desc: "A rigorous mathematics programme that challenges students to think analytically and problem-solve — essential for university success in any field.",
+  },
+  {
+    icon: Globe, name: "Social Sciences & Humanities", color: "bg-gradient-green",
+    courses: ["History", "Government", "Economics", "Christian Religious Studies", "Geography"],
+    desc: "Developing well-rounded thinkers who understand society, governance, culture and history — the foundations of effective leadership.",
+  },
+  {
+    icon: Laptop, name: "Technology & ICT", color: "bg-gradient-red",
+    courses: ["Computer Science", "Information Technology", "Robotics & Coding"],
+    desc: "Equipped with a 60-workstation ICT laboratory and a dedicated robotics programme, we prepare students for the digital economy of tomorrow.",
+  },
+  {
+    icon: BookText, name: "Languages & Literature", color: "bg-gradient-green",
+    courses: ["English Language", "Literature in English", "Igbo Language", "French", "Chinese (Mandarin)"],
+    desc: "Building strong communicators in multiple languages — including a pioneering Chinese (Mandarin) programme for global competitiveness.",
+  },
+  {
+    icon: Music, name: "Arts & Culture", color: "bg-gradient-red",
+    courses: ["Fine Art", "Music", "Drama & Theatre Arts", "Technical Drawing"],
+    desc: "Cultivating creativity and cultural appreciation through fine art, music, drama, and technical design courses.",
+  },
+]
+
+const exams = [
+  {
+    name: "WAEC", full: "West African Examinations Council", result: "98% Pass Rate (2025)",
+    desc: "Our students consistently achieve outstanding results, with the class of 2025 recording a 98% pass rate and 45 students scoring straight A grades.",
+    color: "bg-gradient-green",
+  },
+  {
+    name: "NECO", full: "National Examinations Council", result: "Consistently High Performance",
+    desc: "SCC students excel in NECO examinations, receiving dedicated preparation through structured revision, past question practice, and teacher mentoring.",
+    color: "bg-gradient-red",
+  },
+  {
+    name: "JAMB", full: "Joint Admissions and Matriculation Board", result: "High University Placement",
+    desc: "Our UTME preparation programme ensures students are well-equipped for university entrance examinations across all faculties and fields of study.",
+    color: "bg-gradient-gold",
+  },
+]
+
+const activities = [
+  { icon: Code, name: "Robotics & Coding Club", desc: "Students learn coding, engineering and critical thinking by building functional robots and digital solutions." },
+  { icon: Microscope, name: "Science Club", desc: "Competitive science quizzes and laboratory exploration to build academic confidence and intellectual curiosity." },
+  { icon: Trophy, name: "Debate & Quiz Society", desc: "Award-winning debaters. Winners of multiple regional and state championships, including the Governor's Debate 2019." },
+  { icon: Users, name: "Cultural & Drama Society", desc: "Students showcase literary and theatrical talent. Winners of the Wole Soyinka International Cultural Exchange 1st Prize, 2017." },
+  { icon: Dumbbell, name: "Sports & Athletics", desc: "Football, track and field, athletics, and inter-house sports competitions develop physical fitness, teamwork and competitive spirit." },
+  { icon: Globe, name: "Languages Club", desc: "French, Chinese Mandarin, and Igbo language clubs fostering global communication skills and cultural appreciation." },
+]
+
+export default function AcademicsClient() {
+  const heroRef = useRef(null)
+  const curriculumRef = useRef(null)
+  const examsRef = useRef(null)
+  const activitiesRef = useRef(null)
+
+  const curriculumInView = useInView(curriculumRef, { once: true, margin: "-80px" })
+  const examsInView = useInView(examsRef, { once: true, margin: "-80px" })
+  const activitiesInView = useInView(activitiesRef, { once: true, margin: "-80px" })
+
+  return (
+    <>
+      {/* Hero */}
+      <section className="relative flex min-h-[55vh] items-end overflow-hidden bg-gradient-dark pb-16 pt-24">
+        <div className="absolute inset-0 opacity-25">
+          <Image src="/images/academics.jpg" alt="Academics" fill className="object-cover" sizes="100vw" priority />
+        </div>
+        <div className="absolute inset-0 bg-gradient-hero" />
+        <div className="absolute top-1/3 right-1/4 h-64 w-64 animate-float rounded-full bg-primary/15 blur-[100px]" />
+        <div className="relative z-10 container mx-auto px-4">
+          <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9 }}>
+            <div className="mb-4 flex items-center gap-3">
+              <span className="h-px w-6 bg-primary-foreground/40" />
+              <span className="font-mono-custom text-[11px] tracking-[0.2em] text-primary-foreground/50 uppercase">WAEC · NECO · JAMB</span>
+            </div>
+            <h1 className="font-display text-6xl font-bold italic leading-[0.95] text-primary-foreground md:text-8xl">
+              Academic<br />
+              <span className="not-italic font-heading font-semibold text-primary-foreground/50">Excellence</span>
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg text-primary-foreground/55 leading-relaxed">
+              A rigorous, broad-based curriculum designed to stretch every student to their potential — and beyond.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Curriculum */}
+      <section id="curriculum" ref={curriculumRef} className="bg-background py-24">
+        <div className="container mx-auto px-4">
+          <motion.div initial={{ opacity: 0, y: 24 }} animate={curriculumInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }} className="mb-16 text-center">
+            <div className="mb-4 flex items-center justify-center gap-3">
+              <span className="h-px w-6 bg-secondary" />
+              <span className="font-mono-custom text-[11px] tracking-[0.2em] text-secondary uppercase">Curriculum</span>
+              <span className="h-px w-6 bg-secondary" />
+            </div>
+            <h2 className="font-display text-4xl font-bold italic text-foreground md:text-6xl">
+              What We <span className="not-italic font-heading font-semibold text-gradient-brand">Teach</span>
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
+              Six subject departments covering every field of human knowledge — from natural sciences to the arts, from technology to languages.
+            </p>
+          </motion.div>
+
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {subjects.map((s, i) => (
+              <motion.div key={s.name} initial={{ opacity: 0, y: 24 }} animate={curriculumInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="group rounded-3xl border border-border bg-card p-7 transition-all hover:border-primary/25 hover:shadow-elevated hover:-translate-y-1">
+                <div className={`mb-4 flex h-12 w-12 items-center justify-center rounded-2xl ${s.color}`}>
+                  <s.icon className="h-5 w-5 text-primary-foreground" />
+                </div>
+                <h3 className="mb-2 font-heading font-bold text-foreground">{s.name}</h3>
+                <p className="mb-4 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {s.courses.map(c => (
+                    <span key={c} className="rounded-full border border-border px-2.5 py-0.5 text-[11px] font-medium text-muted-foreground">{c}</span>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Image break */}
+      <div className="relative h-64 overflow-hidden">
+        <Image src="/images/hero-classroom.jpg" alt="Classroom" fill className="object-cover" sizes="100vw" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background" />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="font-display text-3xl italic text-primary-foreground/70 text-center md:text-5xl">
+            &ldquo;Education is the most powerful weapon<br />you can use to change the world.&rdquo;
+          </div>
+        </div>
+      </div>
+
+      {/* Exams */}
+      <section id="exams" ref={examsRef} className="bg-muted/40 py-24">
+        <div className="container mx-auto px-4">
+          <motion.div initial={{ opacity: 0, y: 24 }} animate={examsInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }} className="mb-16 text-center">
+            <div className="mb-4 flex items-center justify-center gap-3">
+              <span className="h-px w-6 bg-secondary" />
+              <span className="font-mono-custom text-[11px] tracking-[0.2em] text-secondary uppercase">Examinations</span>
+              <span className="h-px w-6 bg-secondary" />
+            </div>
+            <h2 className="font-display text-4xl font-bold italic text-foreground md:text-6xl">
+              Exam <span className="not-italic font-heading font-semibold text-gradient-brand">Preparation</span>
+            </h2>
+            <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
+              Structured, intensive preparation for every major national examination — producing results that speak for themselves.
+            </p>
+          </motion.div>
+          <div className="grid gap-6 md:grid-cols-3">
+            {exams.map((e, i) => (
+              <motion.div key={e.name} initial={{ opacity: 0, y: 24 }} animate={examsInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: i * 0.12 }}
+                className="rounded-3xl border border-border bg-card p-8 transition-all hover:shadow-elevated">
+                <div className={`mb-4 inline-flex items-center justify-center rounded-2xl px-5 py-2.5 ${e.color} text-primary-foreground`}>
+                  <span className="font-heading text-2xl font-bold">{e.name}</span>
+                </div>
+                <div className="mb-1 font-mono-custom text-[10px] tracking-widest text-muted-foreground uppercase">{e.full}</div>
+                <div className="mb-4 font-heading text-sm font-bold text-primary">{e.result}</div>
+                <p className="text-sm leading-relaxed text-muted-foreground">{e.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Activities */}
+      <section id="activities" ref={activitiesRef} className="bg-background py-24">
+        <div className="container mx-auto px-4">
+          <motion.div initial={{ opacity: 0, y: 24 }} animate={activitiesInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }} className="mb-16 text-center">
+            <div className="mb-4 flex items-center justify-center gap-3">
+              <span className="h-px w-6 bg-secondary" />
+              <span className="font-mono-custom text-[11px] tracking-[0.2em] text-secondary uppercase">Clubs & Activities</span>
+              <span className="h-px w-6 bg-secondary" />
+            </div>
+            <h2 className="font-display text-4xl font-bold italic text-foreground md:text-6xl">
+              Beyond the <span className="not-italic font-heading font-semibold text-gradient-brand">Classroom</span>
+            </h2>
+            <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
+              We believe in developing the complete person — through sport, culture, technology, and service.
+            </p>
+          </motion.div>
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {activities.map((a, i) => (
+              <motion.div key={a.name} initial={{ opacity: 0, y: 20 }} animate={activitiesInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.4, delay: i * 0.08 }}
+                className="group flex items-start gap-4 rounded-2xl border border-border bg-card p-6 transition-all hover:border-primary/25 hover:shadow-card">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-accent transition-colors group-hover:bg-gradient-green group-hover:text-primary-foreground">
+                  <a.icon className="h-5 w-5 text-primary transition-colors group-hover:text-primary-foreground" />
+                </div>
+                <div>
+                  <h3 className="font-heading font-bold text-foreground">{a.name}</h3>
+                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{a.desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* CTA */}
+          <motion.div initial={{ opacity: 0, y: 24 }} animate={activitiesInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay: 0.4 }}
+            className="mt-12 flex items-center justify-center">
+            <Link href="/admissions"
+              className="inline-flex items-center gap-2 rounded-2xl bg-gradient-red px-8 py-4 font-heading font-semibold text-secondary-foreground transition-all hover:scale-105 hover:opacity-90">
+              Apply to Join SCC <ArrowRight size={17} />
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+    </>
+  )
+}
