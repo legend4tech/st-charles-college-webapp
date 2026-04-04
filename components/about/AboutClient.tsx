@@ -238,13 +238,13 @@ export default function AboutClient() {
       </section>
 
       {/* History */}
-      <section id="history" ref={historyRef} className="bg-background py-24">
+      <section id="history" ref={historyRef} className="bg-background py-32">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={historyInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="mb-16 text-center"
+            className="mb-20 text-center"
           >
             <div className="mb-4 flex items-center justify-center gap-3">
               <span className="h-px w-6 bg-secondary" />
@@ -253,7 +253,7 @@ export default function AboutClient() {
               </span>
               <span className="h-px w-6 bg-secondary" />
             </div>
-            <h2 className="font-display text-4xl font-bold text-foreground italic md:text-6xl">
+            <h2 className="font-display text-4xl font-bold text-foreground italic md:text-6xl text-balance">
               Three Eras of{" "}
               <span className="text-gradient-brand font-heading font-semibold not-italic">
                 Excellence
@@ -285,19 +285,23 @@ export default function AboutClient() {
                   </div>
                   <div className="h-px flex-1 bg-border" />
                 </div>
-                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                   {era.events.map((ev, i) => (
-                    <div
+                    <motion.div
                       key={i}
-                      className="rounded-2xl border border-border bg-card p-5 transition-all hover:border-primary/25 hover:shadow-card"
+                      initial={{ opacity: 0, y: 16 }}
+                      animate={historyInView ? { opacity: 1, y: 0 } : {}}
+                      transition={{ duration: 0.4, delay: eraIdx * 0.1 + i * 0.06 }}
+                      whileHover={{ y: -4 }}
+                      className="group rounded-3xl border border-border bg-card p-6 transition-all duration-300 hover:border-primary/25 hover:shadow-elevated"
                     >
-                      <div className="mb-2 font-mono-custom text-sm font-bold text-primary">
+                      <div className="mb-3 font-mono-custom text-lg font-bold text-primary">
                         {ev.year}
                       </div>
                       <p className="text-sm leading-relaxed text-muted-foreground">
                         {ev.text}
                       </p>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               </motion.div>
@@ -310,15 +314,16 @@ export default function AboutClient() {
       <section
         id="mission"
         ref={missionRef}
-        className="relative overflow-hidden bg-muted/40 py-24"
+        className="relative overflow-hidden bg-muted/40 py-32"
       >
         <div className="absolute top-0 right-0 h-96 w-96 rounded-full bg-accent/40 blur-[150px]" />
+        <div className="absolute bottom-0 left-1/3 h-80 w-80 rounded-full bg-primary/8 blur-[120px]" />
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={missionInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="mb-16 text-center"
+            className="mb-20 text-center"
           >
             <div className="mb-4 flex items-center justify-center gap-3">
               <span className="h-px w-6 bg-secondary" />
@@ -335,51 +340,57 @@ export default function AboutClient() {
             </h2>
           </motion.div>
 
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid gap-8 md:grid-cols-2">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={missionInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.7 }}
-              className="rounded-3xl border border-border bg-card p-8 shadow-card"
+              className="group relative overflow-hidden rounded-3xl border border-border bg-card p-10 shadow-card transition-all duration-300 hover:shadow-elevated hover:-translate-y-1"
             >
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl glow-green bg-gradient-green">
-                <span className="font-display text-xl font-bold text-primary-foreground italic">
-                  M
-                </span>
-              </div>
-              <h3 className="mb-3 font-heading text-xl font-bold text-foreground">
-                Our Mission
-              </h3>
-              <p className="leading-relaxed text-muted-foreground">
+              <div className="absolute top-0 right-0 h-32 w-32 rounded-full bg-primary/5 blur-[60px] group-hover:bg-primary/10 transition-colors" />
+              <div className="relative z-10">
+                <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl glow-green bg-gradient-green transition-transform group-hover:scale-110">
+                  <span className="font-display text-xl font-bold text-primary-foreground italic">
+                    M
+                  </span>
+                </div>
+                <h3 className="mb-4 font-heading text-xl font-bold text-foreground">
+                  Our Mission
+                </h3>
+                <p className="leading-relaxed text-muted-foreground">
                 To provide holistic, value-based education rooted in Catholic
                 tradition. We are committed to nurturing intellectual
                 excellence, moral integrity, spiritual growth, and leadership in
                 young minds — producing graduates who are well-equipped for
                 university, for careers, and for life.
               </p>
+              </div>
             </motion.div>
 
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={missionInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.7, delay: 0.1 }}
-              className="rounded-3xl border border-border bg-card p-8 shadow-card"
+              className="group relative overflow-hidden rounded-3xl border border-border bg-card p-10 shadow-card transition-all duration-300 hover:shadow-elevated hover:-translate-y-1"
             >
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl glow-red bg-gradient-red">
-                <span className="font-display text-xl font-bold text-primary-foreground italic">
-                  V
-                </span>
-              </div>
-              <h3 className="mb-3 font-heading text-xl font-bold text-foreground">
-                Our Vision
-              </h3>
-              <p className="leading-relaxed text-muted-foreground">
+              <div className="absolute top-0 right-0 h-32 w-32 rounded-full bg-secondary/5 blur-[60px] group-hover:bg-secondary/10 transition-colors" />
+              <div className="relative z-10">
+                <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl glow-red bg-gradient-red transition-transform group-hover:scale-110">
+                  <span className="font-display text-xl font-bold text-primary-foreground italic">
+                    V
+                  </span>
+                </div>
+                <h3 className="mb-4 font-heading text-xl font-bold text-foreground">
+                  Our Vision
+                </h3>
+                <p className="leading-relaxed text-muted-foreground">
                 To be a beacon of academic excellence and moral leadership,
                 raising generations of young people who are intellectually
                 sound, spiritually mature, and socially responsible. We envision
                 a future shaped by students who lead with wisdom, serve with
                 humility, and uphold the values of truth and justice.
               </p>
+              </div>
             </motion.div>
           </div>
 
@@ -388,9 +399,10 @@ export default function AboutClient() {
             initial={{ opacity: 0, y: 30 }}
             animate={missionInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="relative mt-8 overflow-hidden rounded-3xl p-10 text-primary-foreground bg-gradient-dark"
+            className="relative mt-12 overflow-hidden rounded-3xl p-12 text-primary-foreground bg-gradient-dark shadow-dramatic"
           >
-            <div className="absolute top-0 right-0 h-48 w-48 rounded-full bg-primary/10 blur-[80px]" />
+            <div className="absolute top-0 right-0 h-64 w-64 rounded-full bg-primary/10 blur-[100px]" />
+            <div className="absolute bottom-0 left-0 h-48 w-48 rounded-full bg-secondary/8 blur-[80px]" />
             <div className="relative z-10 text-center">
               <Quote
                 size={32}
@@ -426,13 +438,13 @@ export default function AboutClient() {
       </section>
 
       {/* Values */}
-      <section id="values" ref={valuesRef} className="bg-background py-24">
+      <section id="values" ref={valuesRef} className="bg-background py-32">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={valuesInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="mb-16 text-center"
+            className="mb-20 text-center"
           >
             <div className="mb-4 flex items-center justify-center gap-3">
               <span className="h-px w-6 bg-secondary" />
@@ -448,26 +460,29 @@ export default function AboutClient() {
               </span>
             </h2>
           </motion.div>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
             {values.map((v, i) => (
               <motion.div
                 key={v.title}
                 initial={{ opacity: 0, y: 24 }}
                 animate={valuesInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="group rounded-3xl border border-border bg-card p-6 transition-all hover:-translate-y-1 hover:border-primary/25 hover:shadow-elevated"
+                className="group relative overflow-hidden rounded-3xl border border-border bg-card p-8 transition-all duration-300 hover:-translate-y-2 hover:border-primary/25 hover:shadow-elevated"
               >
-                <div
-                  className={`mb-4 flex h-12 w-12 items-center justify-center rounded-2xl ${v.color}`}
-                >
-                  <v.icon className="h-5 w-5 text-primary-foreground" />
+                <div className="absolute top-0 right-0 h-24 w-24 rounded-full bg-primary/5 blur-[40px] group-hover:bg-primary/10 transition-colors" />
+                <div className="relative z-10">
+                  <div
+                    className={`mb-5 flex h-14 w-14 items-center justify-center rounded-2xl ${v.color} transition-transform duration-300 group-hover:scale-110`}
+                  >
+                    <v.icon className="h-6 w-6 text-primary-foreground" />
+                  </div>
+                  <h3 className="mb-4 font-heading text-lg font-bold text-foreground">
+                    {v.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    {v.desc}
+                  </p>
                 </div>
-                <h3 className="mb-3 font-heading font-bold text-foreground">
-                  {v.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  {v.desc}
-                </p>
               </motion.div>
             ))}
           </div>
@@ -475,13 +490,13 @@ export default function AboutClient() {
       </section>
 
       {/* Administration */}
-      <section id="administration" ref={adminRef} className="bg-muted/40 py-24">
+      <section id="administration" ref={adminRef} className="bg-muted/40 py-32">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={adminInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="mb-16 text-center"
+            className="mb-20 text-center"
           >
             <div className="mb-4 flex items-center justify-center gap-3">
               <span className="h-px w-6 bg-secondary" />
@@ -502,14 +517,14 @@ export default function AboutClient() {
             </p>
           </motion.div>
 
-          <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {principals.map((p, i) => (
               <motion.div
                 key={p.name}
                 initial={{ opacity: 0, y: 20 }}
                 animate={adminInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.4, delay: i * 0.06 }}
-                className="flex items-start gap-4 rounded-2xl border border-border bg-card p-5 transition-all hover:border-primary/25 hover:shadow-card"
+                className="group flex items-start gap-4 rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:border-primary/25 hover:shadow-elevated hover:-translate-y-1"
               >
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl font-display text-sm font-bold text-primary-foreground italic bg-gradient-green">
                   {p.name
@@ -540,8 +555,10 @@ export default function AboutClient() {
             initial={{ opacity: 0, y: 24 }}
             animate={adminInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="mt-8 rounded-3xl border border-primary/20 bg-accent p-8 text-center"
+            className="relative mt-12 overflow-hidden rounded-3xl border border-primary/20 bg-accent p-10 text-center"
           >
+            <div className="absolute top-0 right-0 h-40 w-40 rounded-full bg-primary/5 blur-[60px]" />
+            <div className="relative z-10">
             <div className="mb-2 font-mono-custom text-[10px] tracking-widest text-accent-foreground/60 uppercase">
               Current Leadership
             </div>
@@ -556,6 +573,7 @@ export default function AboutClient() {
               uphold the highest standards of academic excellence and moral
               formation, achieving numerous regional and national distinctions.
             </p>
+            </div>
           </motion.div>
         </div>
       </section>
@@ -564,7 +582,7 @@ export default function AboutClient() {
       <section
         id="anthem"
         ref={anthemRef}
-        className="relative overflow-hidden py-24 text-primary-foreground bg-gradient-dark"
+        className="relative overflow-hidden py-32 text-primary-foreground bg-gradient-dark"
       >
         <div
           className="absolute inset-0 opacity-[0.05]"
@@ -574,15 +592,16 @@ export default function AboutClient() {
             backgroundSize: "60px 60px",
           }}
         />
-        <div className="absolute top-1/4 right-1/4 h-64 w-64 animate-pulse-glow rounded-full bg-primary/10 blur-[100px]" />
-        <div className="absolute bottom-1/4 left-1/4 h-48 w-48 animate-float rounded-full bg-secondary/8 blur-[80px]" />
+        <div className="absolute top-1/4 right-1/4 h-96 w-96 animate-pulse-glow rounded-full bg-primary/10 blur-[120px]" />
+        <div className="absolute bottom-1/4 left-1/4 h-64 w-64 animate-float rounded-full bg-secondary/8 blur-[100px]" />
+        <div className="absolute top-1/2 right-1/3 h-48 w-48 animate-float rounded-full bg-gold/10 blur-[80px]" />
 
         <div className="relative z-10 container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={anthemInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="mb-12 text-center"
+            className="mb-16 text-center"
           >
             <div className="mb-4 flex items-center justify-center gap-3">
               <span className="h-px w-6 bg-primary-foreground/30" />
@@ -607,7 +626,7 @@ export default function AboutClient() {
             initial={{ opacity: 0, y: 30 }}
             animate={anthemInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="mx-auto max-w-2xl rounded-3xl border border-primary-foreground/10 bg-primary-foreground/5 p-10 backdrop-blur-sm"
+            className="mx-auto max-w-2xl rounded-3xl border border-primary-foreground/10 bg-primary-foreground/5 p-12 backdrop-blur-sm"
           >
             <Quote size={28} className="mb-6 text-primary-foreground/20" />
             <div className="space-y-1">
@@ -633,7 +652,7 @@ export default function AboutClient() {
       </section>
 
       {/* Notable Alumni */}
-      <section className="bg-background py-20">
+      <section className="bg-background py-32">
         <div className="container mx-auto px-4 text-center">
           <div className="mb-8 flex items-center justify-center gap-3">
             <span className="h-px w-6 bg-secondary" />
@@ -642,18 +661,18 @@ export default function AboutClient() {
             </span>
             <span className="h-px w-6 bg-secondary" />
           </div>
-          <h2 className="mb-4 font-display text-4xl font-bold text-foreground italic md:text-5xl">
+          <h2 className="mb-4 font-display text-4xl font-bold text-foreground italic md:text-5xl text-balance">
             Our{" "}
             <span className="text-gradient-brand font-heading font-semibold not-italic">
               Distinguished Alumni
             </span>
           </h2>
-          <p className="mx-auto mb-10 max-w-2xl text-muted-foreground">
+          <p className="mx-auto mb-12 max-w-2xl text-muted-foreground">
             St. Charles&apos; College alumni have risen to the highest positions
             across every field — a testament to the power of a Charlean
             education.
           </p>
-          <div className="grid gap-3 text-left sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-6 text-left sm:grid-cols-2 lg:grid-cols-4">
             {[
               {
                 field: "Law & Judiciary",
@@ -688,9 +707,13 @@ export default function AboutClient() {
                 desc: "Charleans in the diaspora and international organisations making global impact.",
               },
             ].map((a, i) => (
-              <div
+              <motion.div
                 key={a.field}
-                className="rounded-2xl border border-border bg-card p-5 transition-all hover:border-primary/25 hover:shadow-card"
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.06 }}
+                className="group rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:border-primary/25 hover:shadow-elevated hover:-translate-y-1"
               >
                 <div className="mb-2 font-heading text-sm font-bold text-foreground">
                   {a.field}
@@ -698,7 +721,7 @@ export default function AboutClient() {
                 <p className="text-xs leading-relaxed text-muted-foreground">
                   {a.desc}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

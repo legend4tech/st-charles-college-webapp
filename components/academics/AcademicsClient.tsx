@@ -103,15 +103,15 @@ export default function AcademicsClient() {
       </section>
 
       {/* Curriculum */}
-      <section id="curriculum" ref={curriculumRef} className="bg-background py-24">
+      <section id="curriculum" ref={curriculumRef} className="bg-background py-32">
         <div className="container mx-auto px-4">
-          <motion.div initial={{ opacity: 0, y: 24 }} animate={curriculumInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }} className="mb-16 text-center">
+          <motion.div initial={{ opacity: 0, y: 24 }} animate={curriculumInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }} className="mb-20 text-center">
             <div className="mb-4 flex items-center justify-center gap-3">
               <span className="h-px w-6 bg-secondary" />
               <span className="font-mono-custom text-[11px] tracking-[0.2em] text-secondary uppercase">Curriculum</span>
               <span className="h-px w-6 bg-secondary" />
             </div>
-            <h2 className="font-display text-4xl font-bold italic text-foreground md:text-6xl">
+            <h2 className="font-display text-4xl font-bold italic text-foreground md:text-6xl text-balance">
               What We <span className="not-italic font-heading font-semibold text-gradient-brand">Teach</span>
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
@@ -119,20 +119,23 @@ export default function AcademicsClient() {
             </p>
           </motion.div>
 
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {subjects.map((s, i) => (
               <motion.div key={s.name} initial={{ opacity: 0, y: 24 }} animate={curriculumInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="group rounded-3xl border border-border bg-card p-7 transition-all hover:border-primary/25 hover:shadow-elevated hover:-translate-y-1">
-                <div className={`mb-4 flex h-12 w-12 items-center justify-center rounded-2xl ${s.color}`}>
-                  <s.icon className="h-5 w-5 text-primary-foreground" />
-                </div>
-                <h3 className="mb-2 font-heading font-bold text-foreground">{s.name}</h3>
-                <p className="mb-4 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
-                <div className="flex flex-wrap gap-1.5">
-                  {s.courses.map(c => (
-                    <span key={c} className="rounded-full border border-border px-2.5 py-0.5 text-[11px] font-medium text-muted-foreground">{c}</span>
-                  ))}
+                className="group relative overflow-hidden rounded-3xl border border-border bg-card p-8 transition-all duration-300 hover:border-primary/25 hover:shadow-elevated hover:-translate-y-2">
+                <div className="absolute top-0 right-0 h-32 w-32 rounded-full bg-primary/5 blur-[50px] group-hover:bg-primary/10 transition-colors" />
+                <div className="relative z-10">
+                  <div className={`mb-5 flex h-14 w-14 items-center justify-center rounded-2xl ${s.color} transition-transform duration-300 group-hover:scale-110`}>
+                    <s.icon className="h-6 w-6 text-primary-foreground" />
+                  </div>
+                  <h3 className="mb-3 font-heading text-xl font-bold text-foreground">{s.name}</h3>
+                  <p className="mb-5 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {s.courses.map(c => (
+                      <span key={c} className="rounded-full border border-border px-3 py-1 text-[11px] font-medium text-muted-foreground">{c}</span>
+                    ))}
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -141,43 +144,46 @@ export default function AcademicsClient() {
       </section>
 
       {/* Image break */}
-      <div className="relative h-64 overflow-hidden">
+      <div className="relative h-80 overflow-hidden">
         <Image src="/images/hero-classroom.jpg" alt="Classroom" fill className="object-cover" sizes="100vw" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/40 to-background/90" />
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="font-display text-3xl italic text-primary-foreground/70 text-center md:text-5xl">
+          <div className="font-display text-3xl italic text-primary-foreground/80 text-center leading-relaxed md:text-5xl text-balance">
             &ldquo;Education is the most powerful weapon<br />you can use to change the world.&rdquo;
           </div>
         </div>
       </div>
 
       {/* Exams */}
-      <section id="exams" ref={examsRef} className="bg-muted/40 py-24">
+      <section id="exams" ref={examsRef} className="bg-muted/40 py-32">
         <div className="container mx-auto px-4">
-          <motion.div initial={{ opacity: 0, y: 24 }} animate={examsInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }} className="mb-16 text-center">
+          <motion.div initial={{ opacity: 0, y: 24 }} animate={examsInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }} className="mb-20 text-center">
             <div className="mb-4 flex items-center justify-center gap-3">
               <span className="h-px w-6 bg-secondary" />
               <span className="font-mono-custom text-[11px] tracking-[0.2em] text-secondary uppercase">Examinations</span>
               <span className="h-px w-6 bg-secondary" />
             </div>
-            <h2 className="font-display text-4xl font-bold italic text-foreground md:text-6xl">
+            <h2 className="font-display text-4xl font-bold italic text-foreground md:text-6xl text-balance">
               Exam <span className="not-italic font-heading font-semibold text-gradient-brand">Preparation</span>
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
               Structured, intensive preparation for every major national examination — producing results that speak for themselves.
             </p>
           </motion.div>
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid gap-8 md:grid-cols-3">
             {exams.map((e, i) => (
               <motion.div key={e.name} initial={{ opacity: 0, y: 24 }} animate={examsInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: i * 0.12 }}
-                className="rounded-3xl border border-border bg-card p-8 transition-all hover:shadow-elevated">
-                <div className={`mb-4 inline-flex items-center justify-center rounded-2xl px-5 py-2.5 ${e.color} text-primary-foreground`}>
-                  <span className="font-heading text-2xl font-bold">{e.name}</span>
+                className="group relative overflow-hidden rounded-3xl border border-border bg-card p-9 transition-all duration-300 hover:shadow-elevated hover:-translate-y-1">
+                <div className="absolute top-0 right-0 h-24 w-24 rounded-full bg-primary/5 blur-[40px] group-hover:bg-primary/10 transition-colors" />
+                <div className="relative z-10">
+                  <div className={`mb-5 inline-flex items-center justify-center rounded-2xl px-6 py-3 ${e.color} text-primary-foreground transition-transform group-hover:scale-105`}>
+                    <span className="font-heading text-2xl font-bold">{e.name}</span>
+                  </div>
+                  <div className="mb-2 font-mono-custom text-[10px] tracking-widest text-muted-foreground uppercase">{e.full}</div>
+                  <div className="mb-4 font-heading text-sm font-bold text-primary">{e.result}</div>
+                  <p className="text-sm leading-relaxed text-muted-foreground">{e.desc}</p>
                 </div>
-                <div className="mb-1 font-mono-custom text-[10px] tracking-widest text-muted-foreground uppercase">{e.full}</div>
-                <div className="mb-4 font-heading text-sm font-bold text-primary">{e.result}</div>
-                <p className="text-sm leading-relaxed text-muted-foreground">{e.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -185,32 +191,32 @@ export default function AcademicsClient() {
       </section>
 
       {/* Activities */}
-      <section id="activities" ref={activitiesRef} className="bg-background py-24">
+      <section id="activities" ref={activitiesRef} className="bg-background py-32">
         <div className="container mx-auto px-4">
-          <motion.div initial={{ opacity: 0, y: 24 }} animate={activitiesInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }} className="mb-16 text-center">
+          <motion.div initial={{ opacity: 0, y: 24 }} animate={activitiesInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }} className="mb-20 text-center">
             <div className="mb-4 flex items-center justify-center gap-3">
               <span className="h-px w-6 bg-secondary" />
               <span className="font-mono-custom text-[11px] tracking-[0.2em] text-secondary uppercase">Clubs & Activities</span>
               <span className="h-px w-6 bg-secondary" />
             </div>
-            <h2 className="font-display text-4xl font-bold italic text-foreground md:text-6xl">
+            <h2 className="font-display text-4xl font-bold italic text-foreground md:text-6xl text-balance">
               Beyond the <span className="not-italic font-heading font-semibold text-gradient-brand">Classroom</span>
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
               We believe in developing the complete person — through sport, culture, technology, and service.
             </p>
           </motion.div>
-          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {activities.map((a, i) => (
               <motion.div key={a.name} initial={{ opacity: 0, y: 20 }} animate={activitiesInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.4, delay: i * 0.08 }}
-                className="group flex items-start gap-4 rounded-2xl border border-border bg-card p-6 transition-all hover:border-primary/25 hover:shadow-card">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-accent transition-colors group-hover:bg-gradient-green group-hover:text-primary-foreground">
-                  <a.icon className="h-5 w-5 text-primary transition-colors group-hover:text-primary-foreground" />
+                className="group flex items-start gap-4 rounded-2xl border border-border bg-card p-7 transition-all duration-300 hover:border-primary/25 hover:shadow-elevated hover:-translate-y-1">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-accent transition-all duration-300 group-hover:bg-gradient-green group-hover:text-primary-foreground group-hover:scale-110">
+                  <a.icon className="h-6 w-6 text-primary transition-colors duration-300 group-hover:text-primary-foreground" />
                 </div>
                 <div>
                   <h3 className="font-heading font-bold text-foreground">{a.name}</h3>
-                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{a.desc}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{a.desc}</p>
                 </div>
               </motion.div>
             ))}
@@ -218,9 +224,9 @@ export default function AcademicsClient() {
 
           {/* CTA */}
           <motion.div initial={{ opacity: 0, y: 24 }} animate={activitiesInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-12 flex items-center justify-center">
+            className="mt-16 flex items-center justify-center">
             <Link href="/admissions"
-              className="inline-flex items-center gap-2 rounded-2xl bg-gradient-red px-8 py-4 font-heading font-semibold text-secondary-foreground transition-all hover:scale-105 hover:opacity-90">
+              className="inline-flex items-center gap-2 rounded-2xl bg-gradient-red px-10 py-4 font-heading font-semibold text-secondary-foreground shadow-dramatic transition-all hover:scale-105 hover:shadow-elevated">
               Apply to Join SCC <ArrowRight size={17} />
             </Link>
           </motion.div>

@@ -120,13 +120,13 @@ export default function HeroSection() {
 
       {/* ── Overlays ── */}
       {/* Bottom-up vignette so text is always readable */}
-      <div className="absolute inset-0 z-[2] bg-gradient-to-t from-black/60 via-black/20 to-black/10" />
+      <div className="absolute inset-0 z-[2] bg-gradient-to-t from-black/70 via-black/25 to-black/15" />
       {/* Brand colour tint — much lighter than before */}
       <div className="absolute inset-0 z-[3] bg-gradient-hero" />
 
       {/* Subtle grid texture */}
       <div
-        className="absolute inset-0 z-[4] opacity-[0.04]"
+        className="absolute inset-0 z-[4] opacity-[0.035]"
         style={{
           backgroundImage:
             "linear-gradient(hsl(0 0% 100%/.25) 1px,transparent 1px),linear-gradient(90deg,hsl(0 0% 100%/.25) 1px,transparent 1px)",
@@ -134,11 +134,15 @@ export default function HeroSection() {
         }}
       />
 
-      {/* Floating orbs */}
-      <div className="absolute top-1/4 right-[12%] z-[4] h-80 w-80 animate-float rounded-full bg-primary/10 blur-[120px]" />
+      {/* Floating orbs - enhanced */}
+      <div className="absolute top-1/4 right-[12%] z-[4] h-96 w-96 animate-float rounded-full bg-primary/12 blur-[140px]" />
       <div
-        className="animate-float-slow absolute bottom-1/3 left-[8%] z-[4] h-96 w-96 rounded-full bg-secondary/8 blur-[140px]"
+        className="animate-float-slow absolute bottom-1/3 left-[8%] z-[4] h-[28rem] w-[28rem] rounded-full bg-secondary/10 blur-[160px]"
         style={{ animationDelay: "4s" }}
+      />
+      <div
+        className="animate-float absolute top-2/3 right-1/4 z-[4] h-64 w-64 rounded-full bg-gold/8 blur-[120px]"
+        style={{ animationDelay: "2s" }}
       />
 
       {/* Vertical rule */}
@@ -174,7 +178,7 @@ export default function HeroSection() {
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               >
-                <h1 className="font-display text-7xl leading-[0.92] font-bold tracking-tight text-primary-foreground md:text-[8.5rem]">
+                <h1 className="font-display text-7xl leading-[0.92] font-bold tracking-tight text-primary-foreground md:text-[8.5rem] text-balance">
                   {slide.title}
                   <br />
                   <span className="text-primary-foreground/50 italic">
@@ -183,7 +187,7 @@ export default function HeroSection() {
                 </h1>
 
                 <p
-                  className={`mt-8 leading-relaxed text-primary-foreground/70 ${
+                  className={`mt-8 leading-relaxed text-primary-foreground/70 text-balance ${
                     isLast
                       ? "max-w-2xl text-base md:text-lg"
                       : "max-w-lg text-lg"
@@ -199,21 +203,32 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.55 }}
-              className="mt-10 flex flex-wrap gap-4"
+              className="mt-12 flex flex-wrap items-center gap-5"
             >
               <Link
                 href="https://scc.istudent.com.ng/admission/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-2xl bg-secondary px-8 py-4 font-heading font-semibold text-secondary-foreground transition-all hover:scale-105 hover:opacity-90"
+                className="group relative overflow-hidden rounded-2xl bg-secondary px-9 py-4.5 font-heading font-semibold text-secondary-foreground shadow-lg transition-all hover:scale-105 hover:shadow-xl hover:-translate-y-0.5"
               >
-                Apply for Admission →
+                <span className="relative z-10 flex items-center gap-2">
+                  Apply for Admission
+                  <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-secondary to-secondary/90 opacity-0 transition-opacity group-hover:opacity-100" />
               </Link>
               <Link
                 href="/about"
-                className="rounded-2xl px-8 py-4 font-heading font-medium text-primary-foreground/80 glass transition-all hover:scale-105 hover:text-primary-foreground"
+                className="group rounded-2xl px-9 py-4.5 font-heading font-medium text-primary-foreground/85 glass transition-all hover:scale-105 hover:text-primary-foreground hover:shadow-lg hover:-translate-y-0.5"
               >
-                Explore Our Legacy
+                <span className="flex items-center gap-2">
+                  Explore Our Legacy
+                  <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </span>
               </Link>
             </motion.div>
           </div>
@@ -221,27 +236,27 @@ export default function HeroSection() {
       </div>
 
       {/* ── Slide controls ── */}
-      <div className="relative z-[5] container mx-auto flex items-end justify-between px-6 pb-10">
-        <div className="flex items-center gap-5">
+      <div className="relative z-[5] container mx-auto flex items-end justify-between px-6 pb-12">
+        <div className="flex items-center gap-6">
           {slides.map((_, i) => (
             <button
               key={i}
               onClick={() => goTo(i)}
-              className="group flex flex-col items-start gap-1.5"
+              className="group flex flex-col items-start gap-2 transition-all hover:opacity-80"
               aria-label={`Go to slide ${i + 1}`}
             >
               <span
-                className={`font-mono-custom text-[10px] tracking-widest transition-colors duration-300 ${
+                className={`font-mono-custom text-[11px] tracking-widest transition-all duration-300 ${
                   i === current
-                    ? "text-primary-foreground/70"
-                    : "text-primary-foreground/20 group-hover:text-primary-foreground/40"
+                    ? "text-primary-foreground/80 font-bold"
+                    : "text-primary-foreground/25 group-hover:text-primary-foreground/45"
                 }`}
               >
                 0{i + 1}
               </span>
-              <div className="h-0.5 w-10 overflow-hidden rounded-full bg-primary-foreground/15">
+              <div className="h-1 w-14 overflow-hidden rounded-full bg-primary-foreground/10 backdrop-blur-sm">
                 <div
-                  className="h-full rounded-full bg-primary-foreground"
+                  className="h-full rounded-full bg-primary-foreground/70"
                   style={{
                     width:
                       i === current
@@ -259,14 +274,20 @@ export default function HeroSection() {
 
         {/* Scroll hint */}
         <motion.div
-          animate={{ y: [0, 6, 0] }}
+          animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-          className="flex flex-col items-center gap-2"
+          className="flex flex-col items-center gap-2.5"
         >
-          <span className="font-mono-custom text-[9px] tracking-[0.3em] text-primary-foreground/25 uppercase">
+          <span className="font-mono-custom text-[10px] tracking-[0.3em] text-primary-foreground/30 uppercase">
             Scroll
           </span>
-          <ChevronDown size={16} className="text-primary-foreground/25" />
+          <div className="flex h-8 w-5 items-start justify-center rounded-full border border-primary-foreground/20">
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+              className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary-foreground/40"
+            />
+          </div>
         </motion.div>
       </div>
     </section>

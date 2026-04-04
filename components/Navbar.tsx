@@ -87,13 +87,13 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`sticky top-0 z-50 transition-all duration-300 ${
+      className={`sticky top-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "border-b border-border/50 bg-background/95 shadow-card backdrop-blur-xl"
-          : "border-b border-border/30 bg-background"
+          ? "border-b border-border/60 bg-background/80 shadow-lg backdrop-blur-xl"
+          : "border-b border-border/20 bg-background/95 backdrop-blur-md"
       }`}
     >
-      <div className="container mx-auto flex items-center justify-between gap-4 px-4 py-2.5">
+      <div className="container mx-auto flex items-center justify-between gap-4 px-4 py-3">
         {/* LEFT — Archdiocese of Onitsha logo */}
         <div className="hidden shrink-0 items-center lg:flex">
           <div className="relative h-11 w-11 overflow-hidden rounded-full border border-border/60 bg-muted/40 p-0.5 transition-all hover:border-primary/30">
@@ -108,18 +108,18 @@ export default function Navbar() {
         </div>
 
         {/* CENTER-LEFT — School logo + name */}
-        <Link href="/" className="group flex items-center gap-3">
-          <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full border-2 border-primary/20 bg-muted/40 transition-all group-hover:scale-105 group-hover:border-primary/50">
+        <Link href="/" className="group flex items-center gap-3.5">
+          <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full border-2 border-primary/25 bg-muted/40 shadow-sm transition-all duration-300 group-hover:scale-110 group-hover:border-primary/60 group-hover:shadow-md">
             <Image
               src="/images/scc-logo.png"
               alt="St. Charles' College Onitsha"
               fill
-              className="object-contain p-0.5"
-              sizes="44px"
+              className="object-contain p-1"
+              sizes="48px"
             />
           </div>
           <div className="hidden sm:block">
-            <div className="font-heading text-base leading-tight font-semibold text-foreground">
+            <div className="font-heading text-sm leading-tight font-bold text-foreground">
               St. Charles&apos; College
             </div>
             <div className="font-mono-custom text-[10px] tracking-widest text-muted-foreground uppercase">
@@ -129,7 +129,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop nav links */}
-        <div className="hidden flex-1 items-center justify-center gap-0.5 xl:flex">
+        <div className="hidden flex-1 items-center justify-center gap-1 xl:flex">
           {navLinks.map((link) => (
             <div
               key={link.href}
@@ -141,10 +141,10 @@ export default function Navbar() {
             >
               <Link
                 href={link.href}
-                className={`flex items-center gap-1 rounded-xl px-3.5 py-2.5 text-sm font-medium transition-all ${
+                className={`flex items-center gap-1 rounded-xl px-4 py-2.5 text-sm font-medium transition-all duration-200 ${
                   isActive(link.href)
-                    ? "bg-accent text-primary"
-                    : "text-foreground/65 hover:bg-muted hover:text-foreground"
+                    ? "bg-accent/70 text-primary font-semibold"
+                    : "text-foreground/70 hover:bg-muted/70 hover:text-foreground"
                 }`}
               >
                 {link.label}
@@ -187,14 +187,14 @@ export default function Navbar() {
         </div>
 
         {/* RIGHT — theme toggle + apply + Archdiocese logo (right side) */}
-        <div className="flex shrink-0 items-center gap-2">
+        <div className="flex shrink-0 items-center gap-2.5">
           <ThemeToggle />
 
           <Link
             href="https://scc.istudent.com.ng/admission/"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden rounded-xl px-5 py-2.5 text-sm font-semibold text-secondary-foreground transition-all bg-gradient-red hover:scale-105 hover:opacity-90 sm:block"
+            className="hidden rounded-xl px-6 py-2.5 text-sm font-semibold text-secondary-foreground transition-all bg-gradient-red shadow-md hover:scale-105 hover:shadow-lg hover:opacity-95 sm:block"
           >
             Apply Now
           </Link>

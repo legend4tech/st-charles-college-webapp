@@ -94,15 +94,15 @@ export default function AdmissionsClient() {
       </section>
 
       {/* Steps */}
-      <section id="steps" ref={stepsRef} className="bg-background py-24">
+      <section id="steps" ref={stepsRef} className="bg-background py-32">
         <div className="container mx-auto px-4">
-          <motion.div initial={{ opacity: 0, y: 24 }} animate={stepsInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }} className="mb-16 text-center">
+          <motion.div initial={{ opacity: 0, y: 24 }} animate={stepsInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }} className="mb-20 text-center">
             <div className="mb-4 flex items-center justify-center gap-3">
               <span className="h-px w-6 bg-secondary" />
               <span className="font-mono-custom text-[11px] tracking-[0.2em] text-secondary uppercase">How to Apply</span>
               <span className="h-px w-6 bg-secondary" />
             </div>
-            <h2 className="font-display text-4xl font-bold italic text-foreground md:text-6xl">
+            <h2 className="font-display text-4xl font-bold italic text-foreground md:text-6xl text-balance">
               The Admission <span className="not-italic font-heading font-semibold text-gradient-brand">Process</span>
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
@@ -110,25 +110,25 @@ export default function AdmissionsClient() {
             </p>
           </motion.div>
 
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid gap-8 md:grid-cols-2">
             {steps.map((s, i) => (
               <motion.div key={s.step} initial={{ opacity: 0, y: 24 }} animate={stepsInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: i * 0.12 }}
-                className="group relative overflow-hidden rounded-3xl border border-border bg-card p-8 transition-all hover:border-primary/25 hover:shadow-elevated">
-                <div className="absolute top-6 right-6 font-display text-7xl font-bold italic text-border/40 leading-none">{s.step}</div>
-                <div className={`mb-5 flex h-14 w-14 items-center justify-center rounded-2xl ${s.color} transition-all group-hover:scale-110`}>
-                  <s.icon className="h-6 w-6 text-primary-foreground" />
+                className="group relative overflow-hidden rounded-3xl border border-border bg-card p-10 transition-all duration-300 hover:border-primary/25 hover:shadow-elevated hover:-translate-y-1">
+                <div className="absolute top-4 right-6 font-display text-8xl font-bold italic text-border/30 leading-none">{s.step}</div>
+                <div className={`mb-6 flex h-16 w-16 items-center justify-center rounded-2xl ${s.color} transition-all duration-300 group-hover:scale-110`}>
+                  <s.icon className="h-7 w-7 text-primary-foreground" />
                 </div>
-                <h3 className="mb-3 font-heading text-xl font-bold text-foreground">{s.title}</h3>
+                <h3 className="mb-4 font-heading text-xl font-bold text-foreground">{s.title}</h3>
                 <p className="text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
               </motion.div>
             ))}
           </div>
 
           <motion.div initial={{ opacity: 0, y: 24 }} animate={stepsInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay: 0.5 }}
-            className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+            className="mt-12 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Link href="https://scc.istudent.com.ng/admission/" target="_blank" rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-2xl bg-secondary px-10 py-4 font-heading font-semibold text-secondary-foreground glow-red transition-all hover:scale-105 hover:opacity-90">
+              className="flex items-center gap-2 rounded-2xl bg-secondary px-10 py-5 font-heading font-semibold text-secondary-foreground glow-red shadow-dramatic transition-all hover:scale-105 hover:opacity-90">
               Start Your Application <ArrowRight size={17} />
             </Link>
           </motion.div>
@@ -136,7 +136,7 @@ export default function AdmissionsClient() {
       </section>
 
       {/* Requirements */}
-      <section ref={reqRef} className="bg-muted/40 py-24">
+      <section ref={reqRef} className="bg-muted/40 py-32">
         <div className="container mx-auto px-4">
           <div className="grid items-center gap-16 lg:grid-cols-2">
             <motion.div initial={{ opacity: 0, x: -40 }} animate={reqInView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.8 }}>
@@ -154,8 +154,10 @@ export default function AdmissionsClient() {
                 {requirements.map((r, i) => (
                   <motion.div key={i} initial={{ opacity: 0, x: -15 }} animate={reqInView ? { opacity: 1, x: 0 } : {}}
                     transition={{ duration: 0.4, delay: i * 0.07 }}
-                    className="flex items-center gap-3 rounded-xl border border-border bg-card p-3.5">
-                    <CheckCircle size={17} className="shrink-0 text-primary" />
+                    className="group flex items-center gap-3 rounded-xl border border-border bg-card p-4 transition-all duration-300 hover:border-primary/25 hover:shadow-card hover:-translate-y-0.5">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-green transition-transform group-hover:scale-110">
+                      <CheckCircle size={15} className="text-primary-foreground" />
+                    </div>
                     <span className="text-sm text-foreground">{r}</span>
                   </motion.div>
                 ))}
@@ -183,15 +185,15 @@ export default function AdmissionsClient() {
       </section>
 
       {/* FAQ */}
-      <section ref={faqRef} className="bg-background py-24">
+      <section ref={faqRef} className="bg-background py-32">
         <div className="container mx-auto px-4">
-          <motion.div initial={{ opacity: 0, y: 24 }} animate={faqInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }} className="mb-16 text-center">
+          <motion.div initial={{ opacity: 0, y: 24 }} animate={faqInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }} className="mb-20 text-center">
             <div className="mb-4 flex items-center justify-center gap-3">
               <span className="h-px w-6 bg-secondary" />
               <span className="font-mono-custom text-[11px] tracking-[0.2em] text-secondary uppercase">FAQs</span>
               <span className="h-px w-6 bg-secondary" />
             </div>
-            <h2 className="font-display text-4xl font-bold italic text-foreground md:text-6xl">
+            <h2 className="font-display text-4xl font-bold italic text-foreground md:text-6xl text-balance">
               Common <span className="not-italic font-heading font-semibold text-gradient-brand">Questions</span>
             </h2>
           </motion.div>
@@ -199,8 +201,8 @@ export default function AdmissionsClient() {
             {faqs.map((f, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 16 }} animate={faqInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.4, delay: i * 0.08 }}
-                className="rounded-2xl border border-border bg-card p-6 transition-all hover:border-primary/25 hover:shadow-card">
-                <div className="mb-2 font-heading font-semibold text-foreground">{f.q}</div>
+                className="group rounded-2xl border border-border bg-card p-7 transition-all duration-300 hover:border-primary/25 hover:shadow-elevated hover:-translate-y-0.5">
+                <div className="mb-3 font-heading font-semibold text-foreground group-hover:text-primary transition-colors">{f.q}</div>
                 <p className="text-sm leading-relaxed text-muted-foreground">{f.a}</p>
               </motion.div>
             ))}

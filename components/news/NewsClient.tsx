@@ -100,14 +100,14 @@ export default function NewsClient() {
       </section>
 
       {/* Filter + news */}
-      <section ref={listRef} className="bg-background py-16">
+      <section ref={listRef} className="bg-background py-24">
         <div className="container mx-auto px-4">
           {/* Tags */}
           <motion.div initial={{ opacity: 0, y: 16 }} animate={listInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5 }}
-            className="mb-10 flex flex-wrap gap-2">
+            className="mb-12 flex flex-wrap gap-3">
             {tags.map(tag => (
               <button key={tag} onClick={() => setActiveTag(tag)}
-                className={`rounded-full px-5 py-2 text-sm font-medium transition-all ${activeTag === tag ? "bg-primary text-primary-foreground shadow-card" : "border border-border bg-card text-muted-foreground hover:border-primary/40 hover:text-foreground"}`}>
+                className={`rounded-full px-6 py-2.5 text-sm font-medium transition-all duration-300 ${activeTag === tag ? "bg-primary text-primary-foreground shadow-elevated scale-105" : "border border-border bg-card text-muted-foreground hover:border-primary/40 hover:text-foreground hover:shadow-card"}`}>
                 {tag}
               </button>
             ))}
@@ -115,35 +115,37 @@ export default function NewsClient() {
 
           {featured && (
             <motion.div initial={{ opacity: 0, y: 24 }} animate={listInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}
-              className="mb-8 grid gap-6 lg:grid-cols-5">
+              className="mb-10 grid gap-8 lg:grid-cols-5">
               {/* Featured big card */}
-              <article className="group relative overflow-hidden rounded-3xl bg-gradient-dark p-8 text-primary-foreground lg:col-span-3 md:p-10">
-                <div className="absolute top-0 right-0 h-48 w-48 rounded-full bg-primary/15 blur-[80px] transition-colors group-hover:bg-primary/25" />
+              <article className="group relative overflow-hidden rounded-3xl bg-gradient-dark p-10 text-primary-foreground shadow-dramatic lg:col-span-3 md:p-12">
+                <div className="absolute inset-0 opacity-10 bg-gradient-subtle" />
+                <div className="absolute top-0 right-0 h-64 w-64 rounded-full bg-primary/10 blur-[100px] transition-colors duration-500 group-hover:bg-primary/20" />
+                <div className="absolute bottom-0 left-0 h-48 w-48 rounded-full bg-secondary/8 blur-[80px]" />
                 <div className="relative z-10">
-                  <div className="mb-6 flex items-center gap-3">
-                    <span className="rounded-full px-3 py-1 text-xs font-semibold glass">{featured.tag}</span>
+                  <div className="mb-8 flex items-center gap-3">
+                    <span className="rounded-full px-4 py-1.5 text-xs font-semibold bg-primary/30 backdrop-blur-sm">{featured.tag}</span>
                     <span className="flex items-center gap-1 font-mono-custom text-[10px] text-primary-foreground/40">
                       <Calendar size={10} /> {featured.date}
                     </span>
                   </div>
-                  <h2 className="mb-4 font-display text-2xl font-bold italic leading-tight md:text-3xl">{featured.title}</h2>
-                  <p className="mb-6 text-sm leading-relaxed text-primary-foreground/60">{featured.excerpt}</p>
+                  <h2 className="mb-5 font-display text-3xl font-bold italic leading-tight md:text-4xl text-balance">{featured.title}</h2>
+                  <p className="mb-6 text-base leading-relaxed text-primary-foreground/60">{featured.excerpt}</p>
                   <p className="text-sm leading-relaxed text-primary-foreground/40">{featured.body}</p>
                 </div>
               </article>
 
               {/* Side cards */}
-              <div className="flex flex-col gap-4 lg:col-span-2">
+              <div className="flex flex-col gap-5 lg:col-span-2">
                 {rest.slice(0, 3).map((item, i) => (
                   <motion.article key={item.title} initial={{ opacity: 0, x: 20 }} animate={listInView ? { opacity: 1, x: 0 } : {}}
                     transition={{ duration: 0.4, delay: 0.2 + i * 0.08 }}
-                    className="group flex cursor-default items-start gap-4 rounded-2xl border border-border bg-card p-4 transition-all hover:border-primary/25 hover:shadow-card">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-                      <item.icon className="h-4 w-4" />
+                    className="group flex cursor-default items-start gap-4 rounded-2xl border border-border bg-card p-5 transition-all duration-300 hover:border-primary/25 hover:shadow-elevated hover:-translate-y-0.5">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent transition-all duration-300 group-hover:bg-gradient-green group-hover:text-primary-foreground group-hover:scale-110">
+                      <item.icon className="h-5 w-5 transition-colors" />
                     </div>
                     <div className="min-w-0">
-                      <div className="mb-1 flex items-center gap-2">
-                        <span className={`rounded-full border px-2 py-0.5 text-[10px] font-semibold ${tagColors[item.tag]}`}>{item.tag}</span>
+                      <div className="mb-1.5 flex items-center gap-2">
+                        <span className={`rounded-full border px-2.5 py-0.5 text-[10px] font-semibold ${tagColors[item.tag]}`}>{item.tag}</span>
                         <span className="font-mono-custom text-[10px] text-muted-foreground">{item.date}</span>
                       </div>
                       <h3 className="font-heading text-sm font-semibold leading-tight text-foreground transition-colors group-hover:text-primary line-clamp-2">{item.title}</h3>
@@ -155,19 +157,22 @@ export default function NewsClient() {
           )}
 
           {/* All remaining */}
-          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {(featured ? rest.slice(3) : rest).map((item, i) => (
               <motion.article key={item.title} initial={{ opacity: 0, y: 20 }} animate={listInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.4, delay: i * 0.07 }}
-                className="group flex cursor-default flex-col rounded-2xl border border-border bg-card p-6 transition-all hover:border-primary/25 hover:shadow-elevated hover:-translate-y-0.5">
-                <div className="mb-4 flex items-center justify-between">
-                  <span className={`rounded-full border px-3 py-1 text-[11px] font-semibold ${tagColors[item.tag]}`}>{item.tag}</span>
-                  <span className="flex items-center gap-1 font-mono-custom text-[10px] text-muted-foreground"><Calendar size={10} /> {item.date}</span>
-                </div>
-                <h3 className="mb-2 font-heading font-semibold leading-snug text-foreground transition-colors group-hover:text-primary">{item.title}</h3>
-                <p className="flex-1 text-sm leading-relaxed text-muted-foreground line-clamp-3">{item.excerpt}</p>
-                <div className="mt-4 flex items-center gap-1.5 text-sm font-semibold text-primary opacity-0 transition-all group-hover:opacity-100">
-                  Read more <ArrowRight size={13} />
+                className="group relative flex cursor-default flex-col overflow-hidden rounded-2xl border border-border bg-card p-7 transition-all duration-300 hover:border-primary/25 hover:shadow-elevated hover:-translate-y-1">
+                <div className="absolute top-0 right-0 h-24 w-24 rounded-full bg-primary/5 blur-[40px] group-hover:bg-primary/10 transition-colors" />
+                <div className="relative z-10 flex flex-col flex-1">
+                  <div className="mb-5 flex items-center justify-between">
+                    <span className={`rounded-full border px-3 py-1 text-[11px] font-semibold ${tagColors[item.tag]}`}>{item.tag}</span>
+                    <span className="flex items-center gap-1 font-mono-custom text-[10px] text-muted-foreground"><Calendar size={10} /> {item.date}</span>
+                  </div>
+                  <h3 className="mb-3 font-heading font-semibold leading-snug text-foreground transition-colors group-hover:text-primary">{item.title}</h3>
+                  <p className="flex-1 text-sm leading-relaxed text-muted-foreground line-clamp-3">{item.excerpt}</p>
+                  <div className="mt-5 flex items-center gap-1.5 text-sm font-semibold text-primary opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-1">
+                    Read more <ArrowRight size={13} />
+                  </div>
                 </div>
               </motion.article>
             ))}

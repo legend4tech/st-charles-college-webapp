@@ -28,18 +28,28 @@ export function StatsSection() {
     { value: 1, suffix: "st", label: "Wole Soyinka Prize", sub: "WSICE 2017" },
   ]
   return (
-    <section ref={ref} className="bg-background py-14">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
+    <section ref={ref} className="relative overflow-hidden bg-background py-20">
+      {/* Subtle background gradient */}
+      <div className="absolute inset-0 bg-gradient-subtle opacity-50" />
+      <div className="absolute top-0 left-1/4 h-72 w-72 rounded-full bg-accent/20 blur-[120px]" />
+      <div className="absolute bottom-0 right-1/4 h-64 w-64 rounded-full bg-primary/10 blur-[100px]" />
+      
+      <div className="relative z-10 container mx-auto px-4">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
           {stats.map((s, i) => (
             <motion.div key={s.label} initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: i * 0.07 }}
-              className="group rounded-2xl border border-border bg-card p-5 text-center transition-all hover:border-primary/30 hover:shadow-card">
-              <div className="font-display text-4xl font-bold text-gradient-brand md:text-5xl">
-                <AnimatedNumber target={s.value} suffix={s.suffix} />
+              className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 text-center transition-all hover:border-primary/30 hover:shadow-elevated hover:-translate-y-1">
+              {/* Subtle gradient overlay on hover */}
+              <div className="absolute inset-0 bg-gradient-subtle opacity-0 transition-opacity group-hover:opacity-100" />
+              
+              <div className="relative z-10">
+                <div className="font-display text-4xl font-bold text-gradient-brand md:text-5xl">
+                  <AnimatedNumber target={s.value} suffix={s.suffix} />
+                </div>
+                <div className="mt-2 font-heading text-xs font-semibold text-foreground">{s.label}</div>
+                <div className="mt-1 font-mono-custom text-[10px] text-muted-foreground">{s.sub}</div>
               </div>
-              <div className="mt-1.5 font-heading text-xs font-semibold text-foreground">{s.label}</div>
-              <div className="mt-0.5 font-mono-custom text-[10px] text-muted-foreground">{s.sub}</div>
             </motion.div>
           ))}
         </div>

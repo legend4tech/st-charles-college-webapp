@@ -27,50 +27,61 @@ export default function HomeAboutPreview() {
     },
   ]
   return (
-    <section className="relative overflow-hidden bg-muted/40 py-28" ref={ref}>
-      <div className="absolute top-0 right-0 h-[500px] w-[500px] rounded-full bg-accent/30 blur-[180px]" />
+    <section className="relative overflow-hidden bg-muted/40 py-32" ref={ref}>
+      {/* Enhanced decorative elements */}
+      <div className="absolute top-0 right-0 h-[600px] w-[600px] rounded-full bg-accent/25 blur-[200px]" />
+      <div className="absolute bottom-0 left-0 h-[400px] w-[400px] rounded-full bg-primary/10 blur-[150px]" />
+      <div className="absolute top-1/2 left-1/2 h-32 w-32 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold/15 blur-[80px] animate-pulse-glow" />
+      
       <div className="relative z-10 container mx-auto px-4">
-        <div className="grid items-center gap-16 lg:grid-cols-2">
+        <div className="grid items-center gap-20 lg:grid-cols-[1.2fr_1fr]">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.9 }}
             className="relative"
           >
-            <div className="relative h-[560px] overflow-hidden rounded-3xl shadow-elevated">
+            {/* Enhanced image container */}
+            <div className="group relative h-[600px] overflow-hidden rounded-3xl shadow-elevated">
               <Image
                 src="/assets/schoolimage.jpg"
                 alt="St. Charles' College"
                 fill
-                className="object-cover"
-                sizes="(max-width:1024px) 100vw, 50vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width:1024px) 100vw, 60vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground/40 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-foreground/50 via-transparent to-transparent opacity-60 transition-opacity group-hover:opacity-80" />
+              
+              {/* Subtle border glow */}
+              <div className="absolute inset-0 rounded-3xl border border-white/10" />
             </div>
+            
+            {/* Enhanced floating badges */}
             <motion.div
-              animate={{ y: [0, -10, 0] }}
+              animate={{ y: [0, -12, 0] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -right-4 -bottom-6 rounded-3xl p-6 text-primary-foreground shadow-elevated bg-gradient-dark md:right-10"
+              className="absolute -right-6 -bottom-8 rounded-3xl p-7 text-primary-foreground shadow-dramatic bg-gradient-dark md:right-12 glass-dark"
             >
-              <div className="font-display text-5xl font-bold italic">1928</div>
-              <div className="font-mono-custom mt-1 text-[11px] tracking-widest text-primary-foreground/50 uppercase">
+              <div className="font-display text-6xl font-bold italic">1928</div>
+              <div className="font-mono-custom mt-2 text-[11px] tracking-widest text-primary-foreground/60 uppercase">
                 Year Founded
               </div>
             </motion.div>
+            
             <motion.div
-              animate={{ y: [0, 8, 0] }}
+              animate={{ y: [0, 10, 0] }}
               transition={{
                 duration: 6,
                 repeat: Infinity,
                 ease: "easeInOut",
                 delay: 2.5,
               }}
-              className="absolute -top-4 left-4 rounded-2xl p-4 text-primary-foreground shadow-elevated bg-gradient-green md:left-10"
+              className="absolute -top-6 left-6 rounded-2xl p-5 text-primary-foreground shadow-dramatic bg-gradient-green glow-green md:left-12"
             >
-              <div className="font-display text-sm italic">
+              <div className="font-display text-base italic font-medium">
                 &ldquo;Floreat in Aeternum&rdquo;
               </div>
-              <div className="font-mono-custom mt-1 text-[9px] tracking-widest text-primary-foreground/60 uppercase">
+              <div className="font-mono-custom mt-1.5 text-[10px] tracking-widest text-primary-foreground/70 uppercase">
                 Flourishing Forever
               </div>
             </motion.div>
@@ -80,23 +91,24 @@ export default function HomeAboutPreview() {
             initial={{ opacity: 0, x: 50 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.9, delay: 0.15 }}
+            className="lg:pl-8"
           >
-            <div className="mb-4 flex items-center gap-3">
-              <span className="h-px w-6 bg-secondary" />
-              <span className="font-mono-custom text-[11px] tracking-[0.2em] text-secondary uppercase">
+            <div className="mb-5 flex items-center gap-3">
+              <span className="h-px w-8 bg-secondary" />
+              <span className="font-mono-custom text-[11px] tracking-[0.25em] text-secondary uppercase">
                 About Us
               </span>
             </div>
-            <h2 className="font-display mb-6 text-5xl leading-[1.05] font-bold text-foreground italic md:text-6xl">
+            <h2 className="font-display mb-8 text-5xl leading-[1.05] font-bold text-foreground italic md:text-6xl text-balance">
               A Legacy That
               <br />
               <span className="text-gradient-brand font-heading font-semibold not-italic">
                 Spans Centuries
               </span>
             </h2>
-            <p className="mb-5 leading-relaxed text-muted-foreground">
+            <p className="mb-6 text-base leading-relaxed text-muted-foreground">
               St. Charles&apos; College, Onitsha — the{" "}
-              <em className="text-foreground">
+              <em className="font-semibold text-foreground">
                 &ldquo;Varsity on the Niger&rdquo;
               </em>{" "}
               — is one of southeastern Nigeria&apos;s most storied institutions.
@@ -104,34 +116,37 @@ export default function HomeAboutPreview() {
               Charles Borromeo, the college has shaped generations of
               Nigeria&apos;s finest minds.
             </p>
-            <p className="mb-8 leading-relaxed text-muted-foreground">
+            <p className="mb-10 text-base leading-relaxed text-muted-foreground">
               From high court judges and senior advocates to bishops,
               professors, engineers and statesmen — every Charlean carries
               forward the torch of excellence, discipline, and faith.
             </p>
 
-            <div className="mb-8 space-y-2.5">
+            <div className="mb-10 space-y-3">
               {milestones.map((m, i) => (
                 <motion.div
                   key={m.year}
                   initial={{ opacity: 0, x: 20 }}
                   animate={inView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.4, delay: 0.4 + i * 0.1 }}
-                  className="flex items-start gap-4 rounded-2xl border border-border bg-card p-4 transition-all hover:border-primary/25 hover:shadow-card"
+                  className="group flex items-start gap-4 rounded-2xl border border-border bg-card p-5 transition-all hover:border-primary/30 hover:shadow-card hover:-translate-y-0.5"
                 >
-                  <span className="font-mono-custom shrink-0 text-xs font-bold text-primary/70">
+                  <span className="font-mono-custom shrink-0 text-sm font-bold text-primary/80">
                     {m.year}
                   </span>
-                  <p className="text-sm text-muted-foreground">{m.text}</p>
+                  <p className="text-sm leading-relaxed text-muted-foreground">{m.text}</p>
                 </motion.div>
               ))}
             </div>
 
             <Link
               href="/about"
-              className="inline-flex items-center gap-2 font-heading font-semibold text-primary transition-all hover:gap-3"
+              className="group inline-flex items-center gap-2.5 font-heading font-semibold text-primary transition-all hover:gap-4"
             >
-              Read Our Full Story <ArrowRight size={17} />
+              Read Our Full Story 
+              <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
             </Link>
           </motion.div>
         </div>

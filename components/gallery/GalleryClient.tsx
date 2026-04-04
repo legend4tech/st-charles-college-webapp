@@ -63,35 +63,36 @@ export default function GalleryClient() {
       </section>
 
       {/* Grid */}
-      <section ref={gridRef} className="bg-background py-16">
+      <section ref={gridRef} className="bg-background py-24">
         <div className="container mx-auto px-4">
           {/* Filters */}
           <motion.div initial={{ opacity: 0, y: 16 }} animate={gridInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5 }}
-            className="mb-10 flex flex-wrap justify-center gap-2">
+            className="mb-12 flex flex-wrap justify-center gap-3">
             {categories.map(cat => (
               <button key={cat} onClick={() => setActiveCategory(cat)}
-                className={`rounded-full px-5 py-2 text-sm font-medium transition-all ${activeCategory === cat ? "bg-primary text-primary-foreground shadow-card" : "border border-border bg-card text-muted-foreground hover:border-primary/40"}`}>
+                className={`rounded-full px-6 py-2.5 text-sm font-medium transition-all duration-300 ${activeCategory === cat ? "bg-primary text-primary-foreground shadow-elevated scale-105" : "border border-border bg-card text-muted-foreground hover:border-primary/40 hover:text-foreground hover:shadow-card"}`}>
                 {cat}
               </button>
             ))}
           </motion.div>
 
-          <motion.div layout className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
+          <motion.div layout className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
             <AnimatePresence mode="popLayout">
               {filtered.map((img, i) => (
                 <motion.div key={img.title} layout
                   initial={{ opacity: 0, scale: 0.85 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.85 }}
                   transition={{ duration: 0.35, delay: i * 0.04 }}
-                  className={`group relative cursor-pointer overflow-hidden rounded-2xl ${i === 0 && activeCategory === "All" ? "md:col-span-2 md:row-span-2" : ""}`}
+                  className={`group relative cursor-pointer overflow-hidden rounded-2xl shadow-card hover:shadow-elevated transition-shadow duration-300 ${i === 0 && activeCategory === "All" ? "md:col-span-2 md:row-span-2" : ""}`}
                   onClick={() => openLightbox(img.src)}>
-                  <div className={`relative w-full ${i === 0 && activeCategory === "All" ? "h-full min-h-[280px]" : "h-48 md:h-56"}`}>
+                  <div className={`relative w-full ${i === 0 && activeCategory === "All" ? "h-full min-h-[320px]" : "h-52 md:h-64"}`}>
                     <Image src={img.src} alt={img.title} fill className="object-cover transition-transform duration-700 group-hover:scale-110"
                       sizes={i === 0 ? "(max-width:768px) 100vw, 50vw" : "(max-width:768px) 50vw, 25vw"} />
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                  <div className="absolute bottom-0 left-0 right-0 translate-y-full p-4 transition-transform duration-300 group-hover:translate-y-0">
-                    <span className="rounded-full px-2 py-1 text-[10px] text-primary-foreground glass">{img.category}</span>
-                    <h3 className="mt-2 font-heading text-sm font-semibold text-primary-foreground">{img.title}</h3>
+                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                  <div className="absolute bottom-0 left-0 right-0 translate-y-full p-5 transition-transform duration-500 group-hover:translate-y-0">
+                    <span className="rounded-full px-3 py-1 text-[10px] font-medium text-primary-foreground bg-primary/30 backdrop-blur-sm">{img.category}</span>
+                    <h3 className="mt-2 font-heading text-base font-semibold text-primary-foreground">{img.title}</h3>
+                    <p className="mt-1 text-xs text-primary-foreground/60 line-clamp-2">{img.desc}</p>
                   </div>
                 </motion.div>
               ))}
@@ -106,26 +107,26 @@ export default function GalleryClient() {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/95 p-4 backdrop-blur-md"
             onClick={() => setLightbox(null)}>
-            <button className="absolute top-6 right-6 flex h-10 w-10 items-center justify-center rounded-full text-primary-foreground/60 hover:text-primary-foreground glass transition-colors"
+            <button className="absolute top-6 right-6 flex h-12 w-12 items-center justify-center rounded-full text-primary-foreground/60 hover:text-primary-foreground glass transition-all hover:scale-110"
               onClick={() => setLightbox(null)} aria-label="Close">
-              <X size={20} />
+              <X size={22} />
             </button>
-            <button className="absolute left-4 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full text-primary-foreground/60 hover:text-primary-foreground glass transition-colors"
+            <button className="absolute left-6 top-1/2 -translate-y-1/2 flex h-12 w-12 items-center justify-center rounded-full text-primary-foreground/60 hover:text-primary-foreground glass transition-all hover:scale-110"
               onClick={e => { e.stopPropagation(); prev() }} aria-label="Previous">
-              <ChevronLeft size={20} />
+              <ChevronLeft size={22} />
             </button>
-            <button className="absolute right-4 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full text-primary-foreground/60 hover:text-primary-foreground glass transition-colors"
+            <button className="absolute right-6 top-1/2 -translate-y-1/2 flex h-12 w-12 items-center justify-center rounded-full text-primary-foreground/60 hover:text-primary-foreground glass transition-all hover:scale-110"
               onClick={e => { e.stopPropagation(); next() }} aria-label="Next">
-              <ChevronRight size={20} />
+              <ChevronRight size={22} />
             </button>
             <motion.div initial={{ scale: 0.85, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.85, opacity: 0 }}
-              className="relative h-[78vh] max-h-[85vh] w-[88vw] max-w-5xl"
+              className="relative h-[82vh] max-h-[90vh] w-[92vw] max-w-6xl shadow-dramatic rounded-2xl overflow-hidden"
               onClick={e => e.stopPropagation()}>
-              <Image src={images[lightbox].src} alt={images[lightbox].title} fill className="rounded-2xl object-contain" sizes="90vw" />
+              <Image src={images[lightbox].src} alt={images[lightbox].title} fill className="object-contain" sizes="90vw" />
             </motion.div>
-            <div className="absolute bottom-8 text-center">
-              <h3 className="font-heading text-lg font-semibold text-primary-foreground">{images[lightbox].title}</h3>
-              <p className="mt-1 text-sm text-primary-foreground/50">{images[lightbox].desc}</p>
+            <div className="absolute bottom-10 text-center">
+              <h3 className="font-heading text-xl font-semibold text-primary-foreground">{images[lightbox].title}</h3>
+              <p className="mt-1 text-sm text-primary-foreground/50 max-w-lg mx-auto">{images[lightbox].desc}</p>
               <div className="mt-2 font-mono-custom text-[10px] text-primary-foreground/25">{lightbox + 1} / {images.length}</div>
             </div>
           </motion.div>
