@@ -11,10 +11,6 @@ import {
   Award,
   ArrowRight,
   Quote,
-  Church,
-  GraduationCap,
-  MapPin,
-  Calendar,
   Star,
 } from "lucide-react"
 
@@ -90,32 +86,65 @@ const timelineEras = [
   },
 ]
 
+// img: path to photo in /assets/principals/ — leave null if no photo available
 const principals = [
   {
     name: "Rev Bro Fridolin",
     period: "1938–1940",
     role: "Principal (Franciscan Brothers)",
+    img: "/assets/rev_fridolin.png",
   },
   {
     name: "Sir Frederick N. Okafor",
     period: "1970–1972",
     role: "Principal (Post-Civil War)",
+    img: null,
   },
-  { name: "Sir B.I.A. Okafor", period: "1976–1984", role: "Principal" },
+  {
+    name: "Sir B.I.A. Okafor",
+    period: "1976–1984",
+    role: "Principal",
+    img: null,
+  },
   {
     name: "Chief Augustine F. Ikemelu",
     period: "1985–1986",
     role: "Last Principal, TCC Era",
+    img: null,
   },
   {
     name: "Rev Fr Vitus Mbamalu",
     period: "2009–2017",
     role: "Pioneer Manager/Principal (Unified Era)",
+    img: "/assets/fr_mbamalu.png",
   },
   {
-    name: "Rev Fr Emmanuel Emenu",
-    period: "2017–Present",
+    name: "Rev Fr Dr Emmanuel Emenu",
+    period: "2017–2024",
     role: "Manager/Principal",
+    img: "/assets/fr_emenu.png",
+  },
+]
+
+// Current leadership cards — update img paths to match your /assets/ filenames
+const currentLeaders = [
+  {
+    name: "Most Rev. Valerian Okeke",
+    role: "Proprietor / Archbishop of Onitsha",
+    badge: "Proprietor",
+    img: "/assets/bishop_valerian.png",
+  },
+  {
+    name: "Rev. Fr. Gabriel Anochilionye",
+    role: "Manager & Principal",
+    badge: "Principal",
+    img: "/assets/fr_gabriel.png",
+  },
+  {
+    name: "Rev. Fr. Peter Nwansoh",
+    role: "Deputy Manager & Chaplain",
+    badge: "Deputy",
+    img: "/assets/fr_peter.jpg",
   },
 ]
 
@@ -163,6 +192,19 @@ const anthemLines = [
   "May your fountain forever spring and flow,",
   "That you and yours may flourish evermore.",
 ]
+
+/** Returns the best single initial for the avatar fallback */
+function getInitial(name: string) {
+  return (
+    name
+      .split(" ")
+      .find(
+        (w) =>
+          w.length > 2 &&
+          !["Rev", "Fr", "Sir", "Bro", "Chief", "Most"].includes(w)
+      )?.[0] ?? name[0]
+  )
+}
 
 export default function AboutClient() {
   const heroRef = useRef(null)
@@ -242,7 +284,7 @@ export default function AboutClient() {
         </div>
       </section>
 
-      {/* Patron Saint Section — Prominent & Reverent */}
+      {/* Patron Saint Section */}
       <section
         id="patron-saint"
         ref={patronSaintRef}
@@ -253,7 +295,6 @@ export default function AboutClient() {
 
         <div className="relative z-10 container mx-auto px-4">
           <div className="grid items-center gap-16 lg:grid-cols-[1fr_1.3fr]">
-            {/* Large Patron Saint Image */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={patronSaintInView ? { opacity: 1, x: 0 } : {}}
@@ -261,26 +302,16 @@ export default function AboutClient() {
               className="relative"
             >
               <div className="group relative h-[680px] overflow-hidden rounded-3xl shadow-dramatic">
-                {/* Placeholder for St. Charles Borromeo image */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/90 via-primary/80 to-secondary/70" />
-                <div className="absolute inset-0 flex flex-col items-center justify-center p-10 text-center text-primary-foreground">
-                  <Church className="mb-6 h-16 w-16 opacity-80" />
-                  <div className="font-display text-5xl font-bold italic md:text-6xl">
-                    St. Charles
-                    <br />
-                    Borromeo
-                  </div>
-                  <div className="mt-4 font-heading text-sm tracking-wide text-primary-foreground/70">
-                    1538 – 1584
-                  </div>
-                  <div className="mt-3 font-mono-custom text-[10px] tracking-widest text-primary-foreground/50 uppercase">
-                    Patron Saint of SCC
-                  </div>
-                </div>
-                <div className="absolute inset-0 rounded-3xl border border-white/10" />
+                <Image
+                  src="/assets/st-charles.jpg"
+                  alt="St. Charles Borromeo - Patron Saint of St. Charles' College"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width:1024px) 100vw, 45vw"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-foreground/50 via-transparent to-transparent opacity-40" />
               </div>
-
-              {/* Floating badge */}
               <motion.div
                 animate={{ y: [0, -10, 0] }}
                 transition={{
@@ -299,7 +330,6 @@ export default function AboutClient() {
               </motion.div>
             </motion.div>
 
-            {/* Content */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               animate={patronSaintInView ? { opacity: 1, x: 0 } : {}}
@@ -319,7 +349,6 @@ export default function AboutClient() {
                   Borromeo
                 </span>
               </h2>
-
               <div className="space-y-5 text-base leading-relaxed text-muted-foreground">
                 <p>
                   Born on October 2, 1538, in the castle of Arona on Lake
@@ -343,7 +372,6 @@ export default function AboutClient() {
                   feast day is celebrated on November 4th.
                 </p>
               </div>
-
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={patronSaintInView ? { opacity: 1, y: 0 } : {}}
@@ -359,7 +387,6 @@ export default function AboutClient() {
                   — St. Charles Borromeo
                 </div>
               </motion.div>
-
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={patronSaintInView ? { opacity: 1, y: 0 } : {}}
@@ -389,7 +416,7 @@ export default function AboutClient() {
         </div>
       </section>
 
-      {/* Founder Section — Archbishop Charles Heerey */}
+      {/* Founder Section */}
       <section
         id="founder"
         ref={founderRef}
@@ -400,7 +427,6 @@ export default function AboutClient() {
 
         <div className="relative z-10 container mx-auto px-4">
           <div className="grid items-center gap-16 lg:grid-cols-[1.3fr_1fr]">
-            {/* Content */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={founderInView ? { opacity: 1, x: 0 } : {}}
@@ -420,7 +446,6 @@ export default function AboutClient() {
                   Charles Heerey
                 </span>
               </h2>
-
               <div className="space-y-5 text-base leading-relaxed text-muted-foreground">
                 <p>
                   Born on November 29, 1890, in County Mayo, Ireland, Charles
@@ -454,7 +479,6 @@ export default function AboutClient() {
                   </em>
                 </p>
               </div>
-
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={founderInView ? { opacity: 1, y: 0 } : {}}
@@ -481,7 +505,6 @@ export default function AboutClient() {
               </motion.div>
             </motion.div>
 
-            {/* Founder Image */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               animate={founderInView ? { opacity: 1, x: 0 } : {}}
@@ -489,29 +512,15 @@ export default function AboutClient() {
               className="relative"
             >
               <div className="group relative h-[640px] overflow-hidden rounded-3xl shadow-dramatic">
-                {/* Placeholder for Archbishop Heerey image */}
-                <div className="absolute inset-0 bg-gradient-to-br from-secondary/80 via-primary/70 to-primary/90" />
-                <div className="absolute inset-0 flex flex-col items-center justify-center p-10 text-center text-primary-foreground">
-                  <GraduationCap className="mb-6 h-16 w-16 opacity-80" />
-                  <div className="font-display text-4xl font-bold italic md:text-5xl">
-                    Most Rev. Dr.
-                    <br />
-                    Charles Heerey
-                  </div>
-                  <div className="mt-4 font-heading text-sm tracking-wide text-primary-foreground/70">
-                    1890 – 1967
-                  </div>
-                  <div className="mt-3 font-mono-custom text-[10px] tracking-widest text-primary-foreground/50 uppercase">
-                    Archbishop of Onitsha
-                  </div>
-                  <div className="mt-2 font-mono-custom text-[9px] tracking-widest text-primary-foreground/40 uppercase">
-                    CSSP · Holy Ghost Fathers
-                  </div>
-                </div>
-                <div className="absolute inset-0 rounded-3xl border border-white/10" />
+                <Image
+                  src="/assets/heerey.png"
+                  alt="Archbishop Charles Heerey - Founder of St. Charles' College"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width:1024px) 100vw, 45vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-foreground/50 via-transparent to-transparent opacity-40" />
               </div>
-
-              {/* Floating badge */}
               <motion.div
                 animate={{ y: [0, -10, 0] }}
                 transition={{
@@ -694,7 +703,6 @@ export default function AboutClient() {
             </motion.div>
           </div>
 
-          {/* Motto & Core Principles */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={missionInView ? { opacity: 1, y: 0 } : {}}
@@ -797,6 +805,7 @@ export default function AboutClient() {
         className="bg-background py-32"
       >
         <div className="container mx-auto px-4">
+          {/* ── Past Principals ── */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={adminInView ? { opacity: 1, y: 0 } : {}}
@@ -830,25 +839,29 @@ export default function AboutClient() {
                 animate={adminInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.4, delay: i * 0.06 }}
                 whileHover={{ y: -4 }}
-                className="flex items-start gap-4 rounded-2xl border border-border bg-card p-6 transition-all hover:border-primary/30 hover:shadow-elevated"
+                className="flex items-center gap-4 rounded-2xl border border-border bg-card p-5 transition-all hover:border-primary/30 hover:shadow-elevated"
               >
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl font-display text-lg font-bold text-primary-foreground italic bg-gradient-green">
-                  {p.name
-                    .split(" ")
-                    .find(
-                      (w) =>
-                        w.length > 2 &&
-                        !["Rev", "Fr", "Sir", "Bro", "Chief"].includes(w)
-                    )?.[0] ?? p.name[0]}
+                {/* Avatar — shows photo if available, falls back to initial */}
+                <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl border border-border bg-muted">
+                  {p.img && (
+                    <Image
+                      src={p.img}
+                      alt={p.name}
+                      fill
+                      className="object-cover object-top"
+                      sizes="56px"
+                    />
+                  )}
                 </div>
-                <div>
-                  <div className="font-heading text-sm font-semibold text-foreground">
+
+                <div className="min-w-0">
+                  <div className="font-heading text-sm leading-snug font-semibold text-foreground">
                     {p.name}
                   </div>
                   <div className="mt-1 font-mono-custom text-[10px] tracking-wide text-primary">
                     {p.period}
                   </div>
-                  <div className="mt-1 text-xs text-muted-foreground">
+                  <div className="mt-0.5 text-xs text-muted-foreground">
                     {p.role}
                   </div>
                 </div>
@@ -856,32 +869,75 @@ export default function AboutClient() {
             ))}
           </div>
 
-          {/* Current leadership highlight */}
+          {/* ── Current Leadership ── */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={adminInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="mt-12 overflow-hidden rounded-3xl border border-primary/25 bg-accent p-10 text-center shadow-lg"
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="mt-24"
           >
-            <div className="absolute top-0 right-0 h-48 w-48 rounded-full bg-primary/10 blur-[80px]" />
-            <div className="relative z-10">
-              <div className="mb-3 font-mono-custom text-[10px] tracking-widest text-accent-foreground/60 uppercase">
-                Current Leadership
+            {/* Section header */}
+            <div className="mb-12 text-center">
+              <div className="mb-4 flex items-center justify-center gap-3">
+                <span className="h-px w-8 bg-secondary" />
+                <span className="font-mono-custom text-[11px] tracking-[0.25em] text-secondary uppercase">
+                  Meet Our Visionary Leaders
+                </span>
+                <span className="h-px w-8 bg-secondary" />
               </div>
-              <h3 className="font-heading text-3xl font-bold text-accent-foreground">
-                Rev Fr Emmanuel Emenu
-              </h3>
-              <p className="mt-2 text-accent-foreground/70">
-                Manager / Principal · 2017 – Present
+              <h2 className="font-display text-4xl font-bold text-balance text-foreground italic md:text-6xl">
+                Our{" "}
+                <span className="text-gradient-brand font-heading font-semibold not-italic">
+                  Leadership
+                </span>
+              </h2>
+              <p className="mx-auto mt-5 max-w-2xl text-base text-muted-foreground">
+                Meet the individuals whose dedication, leadership, and
+                commitment to excellence continue to shape the future of St.
+                Charles&apos; College Onitsha.
               </p>
-              <p className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-accent-foreground/65">
-                Under his leadership, St. Charles&apos; College has continued to
-                uphold the highest standards of academic excellence and moral
-                formation, achieving numerous regional and national
-                distinctions. The college has seen remarkable growth in WAEC
-                pass rates, infrastructure development, and student achievements
-                in science, culture, and sports.
-              </p>
+            </div>
+
+            {/* Leader cards */}
+            <div className="flex flex-wrap justify-center gap-6">
+              {currentLeaders.map((leader, i) => (
+                <motion.div
+                  key={leader.name}
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={adminInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: 0.5 + i * 0.1 }}
+                  whileHover={{ y: -6 }}
+                  className="group flex w-full flex-col items-center rounded-3xl border border-border bg-card p-7 text-center transition-all hover:border-primary/30 hover:shadow-elevated sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)]"
+                >
+                  {/* Photo */}
+                  <div className="relative mb-5 h-40 w-32 overflow-hidden rounded-2xl border border-border bg-muted shadow-sm">
+                    <Image
+                      src={leader.img}
+                      alt={leader.name}
+                      fill
+                      className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                      sizes="128px"
+                    />
+                    {/* Subtle gradient at base of image */}
+                    <div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-black/20 to-transparent" />
+                  </div>
+
+                  {/* Name */}
+                  <div className="font-heading text-sm leading-snug font-semibold text-primary">
+                    {leader.name}
+                  </div>
+
+                  {/* Role */}
+                  <div className="mt-1.5 text-xs leading-relaxed text-muted-foreground">
+                    {leader.role}
+                  </div>
+
+                  {/* Badge */}
+                  <span className="mt-4 inline-block rounded-lg bg-accent px-3 py-1 font-mono-custom text-[9px] tracking-widest text-accent-foreground uppercase">
+                    {leader.badge}
+                  </span>
+                </motion.div>
+              ))}
             </div>
           </motion.div>
         </div>

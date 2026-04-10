@@ -31,8 +31,8 @@ export default function HomeAboutPreview() {
       {/* Enhanced decorative elements */}
       <div className="absolute top-0 right-0 h-[600px] w-[600px] rounded-full bg-accent/25 blur-[200px]" />
       <div className="absolute bottom-0 left-0 h-[400px] w-[400px] rounded-full bg-primary/10 blur-[150px]" />
-      <div className="absolute top-1/2 left-1/2 h-32 w-32 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold/15 blur-[80px] animate-pulse-glow" />
-      
+      <div className="bg-gold/15 absolute top-1/2 left-1/2 h-32 w-32 -translate-x-1/2 -translate-y-1/2 animate-pulse-glow rounded-full blur-[80px]" />
+
       <div className="relative z-10 container mx-auto px-4">
         <div className="grid items-center gap-20 lg:grid-cols-[1.2fr_1fr]">
           <motion.div
@@ -50,24 +50,24 @@ export default function HomeAboutPreview() {
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
                 sizes="(max-width:1024px) 100vw, 60vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground/50 via-transparent to-transparent opacity-60 transition-opacity group-hover:opacity-80" />
-              
+              <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-transparent to-transparent opacity-80 transition-opacity group-hover:opacity-95" />
+
               {/* Subtle border glow */}
               <div className="absolute inset-0 rounded-3xl border border-white/10" />
             </div>
-            
+
             {/* Enhanced floating badges */}
             <motion.div
               animate={{ y: [0, -12, 0] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -right-6 -bottom-8 rounded-3xl p-7 text-primary-foreground shadow-dramatic bg-gradient-dark md:right-12 glass-dark"
+              className="absolute -right-6 -bottom-8 rounded-3xl p-7 text-primary-foreground shadow-dramatic glass-dark bg-gradient-dark md:right-12"
             >
               <div className="font-display text-6xl font-bold italic">1928</div>
-              <div className="font-mono-custom mt-2 text-[11px] tracking-widest text-primary-foreground/60 uppercase">
+              <div className="mt-2 font-mono-custom text-[11px] tracking-widest text-primary-foreground/85 uppercase">
                 Year Founded
               </div>
             </motion.div>
-            
+
             <motion.div
               animate={{ y: [0, 10, 0] }}
               transition={{
@@ -76,12 +76,12 @@ export default function HomeAboutPreview() {
                 ease: "easeInOut",
                 delay: 2.5,
               }}
-              className="absolute -top-6 left-6 rounded-2xl p-5 text-primary-foreground shadow-dramatic bg-gradient-green glow-green md:left-12"
+              className="absolute -top-6 left-6 rounded-2xl p-5 text-primary-foreground glow-green shadow-dramatic bg-gradient-green md:left-12"
             >
-              <div className="font-display text-base italic font-medium">
+              <div className="font-display text-base font-medium italic">
                 &ldquo;Floreat in Aeternum&rdquo;
               </div>
-              <div className="font-mono-custom mt-1.5 text-[10px] tracking-widest text-primary-foreground/70 uppercase">
+              <div className="mt-1.5 font-mono-custom text-[10px] tracking-widest text-primary-foreground/90 uppercase">
                 Flourishing Forever
               </div>
             </motion.div>
@@ -99,7 +99,7 @@ export default function HomeAboutPreview() {
                 About Us
               </span>
             </div>
-            <h2 className="font-display mb-8 text-5xl leading-[1.05] font-bold text-foreground italic md:text-6xl text-balance">
+            <h2 className="mb-8 font-display text-5xl leading-[1.05] font-bold text-balance text-foreground italic md:text-6xl">
               A Legacy That
               <br />
               <span className="text-gradient-brand font-heading font-semibold not-italic">
@@ -129,12 +129,14 @@ export default function HomeAboutPreview() {
                   initial={{ opacity: 0, x: 20 }}
                   animate={inView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.4, delay: 0.4 + i * 0.1 }}
-                  className="group flex items-start gap-4 rounded-2xl border border-border bg-card p-5 transition-all hover:border-primary/30 hover:shadow-card hover:-translate-y-0.5"
+                  className="group flex items-start gap-4 rounded-2xl border border-border bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-card"
                 >
-                  <span className="font-mono-custom shrink-0 text-sm font-bold text-primary/80">
+                  <span className="shrink-0 font-mono-custom text-sm font-bold text-primary/80">
                     {m.year}
                   </span>
-                  <p className="text-sm leading-relaxed text-muted-foreground">{m.text}</p>
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    {m.text}
+                  </p>
                 </motion.div>
               ))}
             </div>
@@ -143,9 +145,19 @@ export default function HomeAboutPreview() {
               href="/about"
               className="group inline-flex items-center gap-2.5 font-heading font-semibold text-primary transition-all hover:gap-4"
             >
-              Read Our Full Story 
-              <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              Read Our Full Story
+              <svg
+                className="h-4 w-4 transition-transform group-hover:translate-x-1"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2.5}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M13 7l5 5m0 0l-5 5m5-5H6"
+                />
               </svg>
             </Link>
           </motion.div>

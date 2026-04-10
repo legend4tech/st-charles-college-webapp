@@ -120,7 +120,7 @@ export default function HeroSection() {
 
       {/* ── Overlays ── */}
       {/* Bottom-up vignette so text is always readable */}
-      <div className="absolute inset-0 z-[2] bg-gradient-to-t from-black/70 via-black/25 to-black/15" />
+      <div className="absolute inset-0 z-[2] bg-gradient-to-t from-black/85 via-black/45 to-black/30" />
       {/* Brand colour tint — much lighter than before */}
       <div className="absolute inset-0 z-[3] bg-gradient-hero" />
 
@@ -137,11 +137,11 @@ export default function HeroSection() {
       {/* Floating orbs - enhanced */}
       <div className="absolute top-1/4 right-[12%] z-[4] h-96 w-96 animate-float rounded-full bg-primary/12 blur-[140px]" />
       <div
-        className="animate-float-slow absolute bottom-1/3 left-[8%] z-[4] h-[28rem] w-[28rem] rounded-full bg-secondary/10 blur-[160px]"
+        className="absolute bottom-1/3 left-[8%] z-[4] h-[28rem] w-[28rem] animate-float-slow rounded-full bg-secondary/10 blur-[160px]"
         style={{ animationDelay: "4s" }}
       />
       <div
-        className="animate-float absolute top-2/3 right-1/4 z-[4] h-64 w-64 rounded-full bg-gold/8 blur-[120px]"
+        className="bg-gold/8 absolute top-2/3 right-1/4 z-[4] h-64 w-64 animate-float rounded-full blur-[120px]"
         style={{ animationDelay: "2s" }}
       />
 
@@ -162,8 +162,8 @@ export default function HeroSection() {
                 transition={{ duration: 0.45, ease: "easeOut" }}
                 className="mb-6 flex items-center gap-3"
               >
-                <span className="h-px w-8 bg-primary-foreground/40" />
-                <span className="font-mono-custom text-[11px] tracking-[0.2em] text-primary-foreground/55 uppercase">
+                <span className="h-px w-8 bg-primary-foreground/60" />
+                <span className="font-mono-custom text-[11px] tracking-[0.2em] text-primary-foreground/80 uppercase">
                   {slide.eyebrow}
                 </span>
               </motion.div>
@@ -178,16 +178,16 @@ export default function HeroSection() {
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               >
-                <h1 className="font-display text-7xl leading-[0.92] font-bold tracking-tight text-primary-foreground md:text-[8.5rem] text-balance">
+                <h1 className="font-display text-7xl leading-[0.92] font-bold tracking-tight text-balance text-primary-foreground md:text-[8.5rem]">
                   {slide.title}
                   <br />
-                  <span className="text-primary-foreground/50 italic">
+                  <span className="text-primary-foreground/75 italic">
                     {slide.subtitle}
                   </span>
                 </h1>
 
                 <p
-                  className={`mt-8 leading-relaxed text-primary-foreground/70 text-balance ${
+                  className={`mt-8 leading-relaxed text-balance text-primary-foreground/90 ${
                     isLast
                       ? "max-w-2xl text-base md:text-lg"
                       : "max-w-lg text-lg"
@@ -209,24 +209,44 @@ export default function HeroSection() {
                 href="https://scc.istudent.com.ng/admission/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative overflow-hidden rounded-2xl bg-secondary px-9 py-4.5 font-heading font-semibold text-secondary-foreground shadow-lg transition-all hover:scale-105 hover:shadow-xl hover:-translate-y-0.5"
+                className="group relative overflow-hidden rounded-2xl bg-secondary px-9 py-4.5 font-heading font-semibold text-secondary-foreground shadow-lg transition-all hover:-translate-y-0.5 hover:scale-105 hover:shadow-xl"
               >
                 <span className="relative z-10 flex items-center gap-2">
                   Apply for Admission
-                  <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  <svg
+                    className="h-4 w-4 transition-transform group-hover:translate-x-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2.5}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13 7l5 5m0 0l-5 5m5-5H6"
+                    />
                   </svg>
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-secondary to-secondary/90 opacity-0 transition-opacity group-hover:opacity-100" />
               </Link>
               <Link
                 href="/about"
-                className="group rounded-2xl px-9 py-4.5 font-heading font-medium text-primary-foreground/85 glass transition-all hover:scale-105 hover:text-primary-foreground hover:shadow-lg hover:-translate-y-0.5"
+                className="group rounded-2xl px-9 py-4.5 font-heading font-medium text-primary-foreground/85 glass transition-all hover:-translate-y-0.5 hover:scale-105 hover:text-primary-foreground hover:shadow-lg"
               >
                 <span className="flex items-center gap-2">
                   Explore Our Legacy
-                  <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  <svg
+                    className="h-4 w-4 transition-transform group-hover:translate-x-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    />
                   </svg>
                 </span>
               </Link>
@@ -248,8 +268,8 @@ export default function HeroSection() {
               <span
                 className={`font-mono-custom text-[11px] tracking-widest transition-all duration-300 ${
                   i === current
-                    ? "text-primary-foreground/80 font-bold"
-                    : "text-primary-foreground/25 group-hover:text-primary-foreground/45"
+                    ? "font-bold text-primary-foreground/90"
+                    : "text-primary-foreground/60 group-hover:text-primary-foreground/80"
                 }`}
               >
                 0{i + 1}
@@ -278,13 +298,17 @@ export default function HeroSection() {
           transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
           className="flex flex-col items-center gap-2.5"
         >
-          <span className="font-mono-custom text-[10px] tracking-[0.3em] text-primary-foreground/30 uppercase">
+          <span className="font-mono-custom text-[10px] tracking-[0.3em] text-primary-foreground/70 uppercase">
             Scroll
           </span>
-          <div className="flex h-8 w-5 items-start justify-center rounded-full border border-primary-foreground/20">
+          <div className="flex h-8 w-5 items-start justify-center rounded-full border border-primary-foreground/50">
             <motion.div
               animate={{ y: [0, 8, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
               className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary-foreground/40"
             />
           </div>

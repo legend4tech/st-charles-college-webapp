@@ -1,45 +1,37 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X, ChevronDown, Sun, Moon } from "lucide-react"
+import { Menu, X, ChevronRight, Sun, Moon } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { useTheme } from "next-themes"
 
 const navLinks = [
-  {
-    label: "About",
-    href: "/about",
-    children: [
-      { label: "Our History", href: "/about#history" },
-      { label: "Mission & Vision", href: "/about#mission" },
-      { label: "Administration", href: "/about#administration" },
-      { label: "School Anthem", href: "/about#anthem" },
-    ],
-  },
-  {
-    label: "Academics",
-    href: "/academics",
-    children: [
-      { label: "Curriculum", href: "/academics#curriculum" },
-      { label: "Exam Preparation", href: "/academics#exams" },
-      { label: "Clubs & Activities", href: "/academics#activities" },
-    ],
-  },
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Academics", href: "/academics" },
   { label: "Admissions", href: "/admissions" },
   { label: "News", href: "/news" },
   { label: "Gallery", href: "/gallery" },
   { label: "Projects", href: "/projects" },
   { label: "Contact", href: "/contact" },
+  { label: "Check Results", href: "https://scc.istudentng.com/" },
 ]
 
 function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
-  useEffect(() => setMounted(true), [])
+  useEffect(() => {
+    // Use requestAnimationFrame to defer setState and avoid synchronous update warning
+    const frame = requestAnimationFrame(() => {
+      setMounted(true)
+    })
+    return () => cancelAnimationFrame(frame)
+  }, [])
+
   if (!mounted) return <div className="h-9 w-9" />
 
   const isDark = resolvedTheme === "dark"
@@ -68,251 +60,280 @@ function ThemeToggle() {
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
   const pathname = usePathname()
+  const prevPathnameRef = useRef(pathname)
 
+  // Handle scroll effect
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
     window.addEventListener("scroll", onScroll, { passive: true })
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
+  // Close drawer on pathname change - using ref to track previous value
   useEffect(() => {
-    setIsOpen(false)
-    setActiveDropdown(null)
+    if (prevPathnameRef.current !== pathname) {
+      // Use requestAnimationFrame to defer setState
+      const frame = requestAnimationFrame(() => {
+        setIsOpen(false)
+      })
+      prevPathnameRef.current = pathname
+      return () => cancelAnimationFrame(frame)
+    }
   }, [pathname])
 
-  const isActive = (href: string) =>
-    pathname === href || pathname.startsWith(href + "/")
+  // Prevent body scroll when drawer is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = ""
+    }
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [isOpen])
+
+  const isActive = useCallback(
+    (href: string) => pathname === href || pathname.startsWith(href + "/"),
+    [pathname]
+  )
+
+  const closeDrawer = useCallback(() => {
+    setIsOpen(false)
+  }, [])
+
+  const openDrawer = useCallback(() => {
+    setIsOpen(true)
+  }, [])
 
   return (
-    <nav
-      className={`sticky top-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? "border-b border-border/60 bg-background/80 shadow-lg backdrop-blur-xl"
-          : "border-b border-border/20 bg-background/95 backdrop-blur-md"
-      }`}
-    >
-      <div className="container mx-auto flex items-center justify-between gap-4 px-4 py-3">
-        {/* LEFT — Archdiocese of Onitsha logo */}
-        <div className="hidden shrink-0 items-center lg:flex">
-          <div className="relative h-11 w-11 overflow-hidden rounded-full border border-border/60 bg-muted/40 p-0.5 transition-all hover:border-primary/30">
-            <Image
-              src="/images/archdiocese-logo.png"
-              alt="Archdiocese of Onitsha"
-              fill
-              className="object-contain p-1"
-              sizes="44px"
-            />
-          </div>
-        </div>
-
-        {/* CENTER-LEFT — School logo + name */}
-        <Link href="/" className="group flex items-center gap-3.5">
-          <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full border-2 border-primary/25 bg-muted/40 shadow-sm transition-all duration-300 group-hover:scale-110 group-hover:border-primary/60 group-hover:shadow-md">
-            <Image
-              src="/images/scc-logo.png"
-              alt="St. Charles' College Onitsha"
-              fill
-              className="object-contain p-1"
-              sizes="48px"
-            />
-          </div>
-          <div className="hidden sm:block">
-            <div className="font-heading text-sm leading-tight font-bold text-foreground">
-              St. Charles&apos; College
+    <>
+      <nav
+        className={`sticky top-0 z-50 transition-all duration-500 ${
+          scrolled
+            ? "border-b border-border/60 bg-background/80 shadow-lg backdrop-blur-xl"
+            : "border-b border-border/20 bg-background/95 backdrop-blur-md"
+        }`}
+      >
+        <div className="container mx-auto flex items-center justify-between gap-4 px-4 py-3">
+          {/* LEFT — School logo */}
+          <Link href="/" className="group shrink-0">
+            <div className="relative h-12 w-12 transition-transform duration-300 group-hover:scale-105 md:h-14 md:w-14">
+              <Image
+                src="/assets/scc_logo1.png"
+                alt="St. Charles' College Onitsha"
+                fill
+                className="rounded-lg object-contain"
+                sizes="56px"
+              />
             </div>
-            <div className="font-mono-custom text-[10px] tracking-widest text-muted-foreground uppercase">
+          </Link>
+
+          {/* CENTER — School name and details */}
+          <div className="hidden flex-1 flex-col items-center lg:flex">
+            <div className="text-xs font-medium tracking-wide text-muted-foreground uppercase">
+              Archdiocese of Onitsha
+            </div>
+            <div className="font-heading text-xl font-bold text-foreground md:text-2xl">
+              ST. CHARLES&apos; COLLEGE
+            </div>
+            <div className="text-xs text-muted-foreground">
+              P.M.B 1718, Onitsha, Anambra State
+            </div>
+            <div className="font-mono-custom text-[10px] tracking-wide text-primary italic">
+              Motto: &quot;Floreat in Aeternum&quot;
+            </div>
+          </div>
+
+          {/* Mobile — School name (smaller) */}
+          <div className="flex flex-1 flex-col items-center lg:hidden">
+            <div className="font-heading text-sm font-bold text-foreground sm:text-base">
+              ST. CHARLES&apos; COLLEGE
+            </div>
+            <div className="text-[9px] text-muted-foreground sm:text-[10px]">
               Onitsha · Est. 1928
             </div>
           </div>
-        </Link>
 
-        {/* Desktop nav links */}
-        <div className="hidden flex-1 items-center justify-center gap-1 xl:flex">
-          {navLinks.map((link) => (
-            <div
-              key={link.href}
-              className="relative"
-              onMouseEnter={() =>
-                link.children && setActiveDropdown(link.label)
-              }
-              onMouseLeave={() => setActiveDropdown(null)}
+          {/* RIGHT — Archdiocese logo + theme toggle + menu */}
+          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+            <ThemeToggle />
+
+            <div className="relative hidden h-12 w-12 sm:block md:h-14 md:w-14">
+              <Image
+                src="/assets/archdiocese_of_onitsha_logo.png"
+                alt="Archdiocese of Onitsha"
+                fill
+                className="object-contain"
+                sizes="56px"
+              />
+            </div>
+
+            {/* Mobile toggle */}
+            <button
+              onClick={openDrawer}
+              className="rounded-xl p-2 text-foreground hover:bg-muted xl:hidden"
+              aria-label="Open menu"
             >
+              <Menu size={24} />
+            </button>
+          </div>
+        </div>
+
+        {/* Desktop nav links — second row */}
+        <div className="hidden border-t border-border/30 bg-muted/30 xl:block">
+          <div className="container mx-auto flex items-center justify-center gap-1 px-4 py-2">
+            {navLinks.map((link) => (
               <Link
+                key={link.href}
                 href={link.href}
-                className={`flex items-center gap-1 rounded-xl px-4 py-2.5 text-sm font-medium transition-all duration-200 ${
+                className={`rounded-xl px-4 py-2 text-sm font-medium transition-all duration-200 ${
                   isActive(link.href)
-                    ? "bg-accent/70 text-primary font-semibold"
+                    ? "bg-accent/70 font-semibold text-primary"
                     : "text-foreground/70 hover:bg-muted/70 hover:text-foreground"
                 }`}
               >
                 {link.label}
-                {link.children && (
-                  <ChevronDown
-                    size={13}
-                    className={`transition-transform duration-200 ${
-                      activeDropdown === link.label ? "rotate-180" : ""
-                    }`}
-                  />
-                )}
               </Link>
+            ))}
 
-              <AnimatePresence>
-                {link.children && activeDropdown === link.label && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 8 }}
-                    transition={{ duration: 0.18 }}
-                    className="absolute top-full left-0 mt-2 w-52 overflow-hidden rounded-2xl border border-border bg-card shadow-elevated"
-                  >
-                    <div className="p-1.5">
-                      {link.children.map((child) => (
-                        <Link
-                          key={child.href}
-                          href={child.href}
-                          className="flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm text-foreground/65 transition-colors hover:bg-muted hover:text-foreground"
-                        >
-                          <span className="h-1 w-1 rounded-full bg-primary/50" />
-                          {child.label}
-                        </Link>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          ))}
-        </div>
-
-        {/* RIGHT — theme toggle + apply + Archdiocese logo (right side) */}
-        <div className="flex shrink-0 items-center gap-2.5">
-          <ThemeToggle />
-
-          <Link
-            href="https://scc.istudent.com.ng/admission/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden rounded-xl px-6 py-2.5 text-sm font-semibold text-secondary-foreground transition-all bg-gradient-red shadow-md hover:scale-105 hover:shadow-lg hover:opacity-95 sm:block"
-          >
-            Apply Now
-          </Link>
-
-          {/* Archdiocese logo on the far right — desktop */}
-          <div className="hidden shrink-0 items-center lg:flex">
-            <div className="relative ml-1 h-11 w-11 overflow-hidden rounded-full border border-border/60 bg-muted/40 p-0.5 transition-all hover:border-primary/30">
-              <Image
-                src="/images/archdiocese-logo.png"
-                alt="Archdiocese of Onitsha"
-                fill
-                className="object-contain p-1"
-                sizes="44px"
-              />
-            </div>
-          </div>
-
-          {/* Mobile toggle */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="rounded-xl p-2.5 text-foreground hover:bg-muted xl:hidden"
-            aria-label="Toggle menu"
-          >
-            <motion.div
-              animate={isOpen ? { rotate: 90 } : { rotate: 0 }}
-              transition={{ duration: 0.2 }}
+            <Link
+              href="https://scc.istudent.com.ng/admission/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-2 rounded-xl px-5 py-2 text-sm font-semibold text-secondary-foreground shadow-md transition-all bg-gradient-red hover:scale-105 hover:opacity-95 hover:shadow-lg"
             >
-              {isOpen ? <X size={22} /> : <Menu size={22} />}
-            </motion.div>
-          </button>
+              Apply Now
+            </Link>
+          </div>
         </div>
-      </div>
+      </nav>
 
-      {/* Mobile menu */}
+      {/* Mobile Side Drawer */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="overflow-hidden border-t border-border bg-background xl:hidden"
-          >
-            <div className="container mx-auto flex flex-col gap-1 px-4 py-4">
-              {/* Mobile logos row */}
-              <div className="mb-3 flex items-center justify-center gap-4 border-b border-border pb-4">
-                <div className="relative h-10 w-10 overflow-hidden rounded-full border border-border/60 bg-muted/40">
-                  <Image
-                    src="/images/archdiocese-logo.png"
-                    alt="Archdiocese of Onitsha"
-                    fill
-                    className="object-contain p-1"
-                    sizes="40px"
-                  />
-                </div>
-                <div className="text-center">
-                  <div className="font-heading text-xs font-semibold text-foreground">
-                    St. Charles&apos; College, Onitsha
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={closeDrawer}
+              className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm xl:hidden"
+            />
+
+            {/* Drawer */}
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="fixed top-0 right-0 z-50 h-full w-80 max-w-[85vw] bg-background shadow-2xl xl:hidden"
+            >
+              <div className="flex h-full flex-col">
+                {/* Drawer Header */}
+                <div className="flex items-center justify-between border-b border-border p-4">
+                  <div className="flex items-center gap-3">
+                    <div className="relative h-10 w-10">
+                      <Image
+                        src="/assets/scc_logo1.png"
+                        alt="St. Charles' College"
+                        fill
+                        className="object-contain"
+                        sizes="40px"
+                      />
+                    </div>
+                    <div>
+                      <div className="font-heading text-sm font-bold text-foreground">
+                        SCC Onitsha
+                      </div>
+                      <div className="text-[10px] text-muted-foreground">
+                        Floreat in Aeternum
+                      </div>
+                    </div>
                   </div>
-                  <div className="font-mono-custom text-[9px] tracking-widest text-muted-foreground uppercase">
-                    Est. 1928 · Floreat in Aeternum
+                  <button
+                    onClick={closeDrawer}
+                    className="rounded-xl p-2 text-foreground/60 hover:bg-muted hover:text-foreground"
+                    aria-label="Close menu"
+                  >
+                    <X size={20} />
+                  </button>
+                </div>
+
+                {/* Nav Links */}
+                <div className="flex-1 overflow-y-auto p-4">
+                  <div className="space-y-1">
+                    {navLinks.map((link, index) => (
+                      <motion.div
+                        key={link.href}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.05 }}
+                      >
+                        <Link
+                          href={link.href}
+                          onClick={closeDrawer}
+                          className={`flex items-center justify-between rounded-xl px-4 py-3.5 text-sm font-medium transition-all ${
+                            isActive(link.href)
+                              ? "bg-primary/10 text-primary"
+                              : "text-foreground/80 hover:bg-muted hover:text-foreground"
+                          }`}
+                        >
+                          {link.label}
+                          <ChevronRight
+                            size={16}
+                            className="text-muted-foreground"
+                          />
+                        </Link>
+                      </motion.div>
+                    ))}
                   </div>
                 </div>
-                <div className="relative h-10 w-10 overflow-hidden rounded-full border-2 border-primary/20 bg-muted/40">
-                  <Image
-                    src="/images/scc-logo.png"
-                    alt="St. Charles' College"
-                    fill
-                    className="object-contain p-0.5"
-                    sizes="40px"
-                  />
+
+                {/* Drawer Footer */}
+                <div className="border-t border-border p-4">
+                  <Link
+                    href="https://scc.istudent.com.ng/admission/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={closeDrawer}
+                    className="flex w-full items-center justify-center rounded-xl px-5 py-3.5 text-sm font-semibold text-secondary-foreground shadow-md bg-gradient-red"
+                  >
+                    Apply Now
+                  </Link>
+
+                  <div className="mt-4 flex items-center justify-center gap-3">
+                    <div className="relative h-8 w-8">
+                      <Image
+                        src="/assets/scc_logo1.png"
+                        alt="SCC"
+                        fill
+                        className="object-contain opacity-50"
+                        sizes="32px"
+                      />
+                    </div>
+                    <div className="relative h-8 w-8">
+                      <Image
+                        src="/assets/archdiocese_of_onitsha_logo.png"
+                        alt="Archdiocese"
+                        fill
+                        className="object-contain opacity-50"
+                        sizes="32px"
+                      />
+                    </div>
+                  </div>
+                  <p className="mt-2 text-center text-[10px] text-muted-foreground">
+                    © 2024 St. Charles&apos; College, Onitsha
+                  </p>
                 </div>
               </div>
-
-              {navLinks.map((link) => (
-                <div key={link.href}>
-                  <Link
-                    href={link.href}
-                    onClick={() => setIsOpen(false)}
-                    className={`flex rounded-xl px-4 py-3 text-sm font-medium transition-colors ${
-                      isActive(link.href)
-                        ? "bg-accent text-primary"
-                        : "text-foreground hover:bg-muted"
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                  {link.children && (
-                    <div className="mt-0.5 ml-4 space-y-0.5 pb-1">
-                      {link.children.map((child) => (
-                        <Link
-                          key={child.href}
-                          href={child.href}
-                          onClick={() => setIsOpen(false)}
-                          className="flex items-center gap-2 rounded-lg px-4 py-2 text-xs text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-                        >
-                          <span className="h-1 w-1 rounded-full bg-border" />
-                          {child.label}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
-
-              <Link
-                href="https://scc.istudent.com.ng/admission/"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setIsOpen(false)}
-                className="mt-3 rounded-xl px-5 py-3 text-center text-sm font-semibold text-secondary-foreground bg-gradient-red"
-              >
-                Apply Now →
-              </Link>
-            </div>
-          </motion.div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
-    </nav>
+    </>
   )
 }
