@@ -118,6 +118,7 @@ export default function GalleryClient() {
             className="object-cover"
             sizes="100vw"
             priority
+            loading="eager"
           />
         </div>
         <div className="absolute inset-0 bg-gradient-hero" />
@@ -179,7 +180,7 @@ export default function GalleryClient() {
 
           <motion.div
             layout
-            className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4"
+            className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4"
           >
             <AnimatePresence mode="popLayout">
               {filtered.map((img, i) => (
@@ -190,11 +191,19 @@ export default function GalleryClient() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.85 }}
                   transition={{ duration: 0.35, delay: i * 0.04 }}
-                  className={`group relative cursor-pointer overflow-hidden rounded-2xl shadow-card transition-shadow duration-300 hover:shadow-elevated ${i === 0 && activeCategory === "All" ? "md:col-span-2 md:row-span-2" : ""}`}
+                  className={`group relative cursor-pointer overflow-hidden rounded-2xl shadow-card transition-shadow duration-300 hover:shadow-elevated ${
+                    i === 0 && activeCategory === "All"
+                      ? "col-span-2 md:col-span-2 md:row-span-2"
+                      : ""
+                  }`}
                   onClick={() => openLightbox(img.src)}
                 >
                   <div
-                    className={`relative w-full ${i === 0 && activeCategory === "All" ? "h-full min-h-[320px]" : "h-52 md:h-64"}`}
+                    className={`relative w-full ${
+                      i === 0 && activeCategory === "All"
+                        ? "h-64 min-h-[250px] md:h-full md:min-h-[320px]"
+                        : "h-48 md:h-52 lg:h-64"
+                    }`}
                   >
                     <Image
                       src={img.src}
@@ -203,9 +212,10 @@ export default function GalleryClient() {
                       className="object-cover transition-transform duration-700 group-hover:scale-110"
                       sizes={
                         i === 0
-                          ? "(max-width:768px) 100vw, 50vw"
+                          ? "(max-width:768px) 100vw, (max-width:1024px) 50vw, 50vw"
                           : "(max-width:768px) 50vw, 25vw"
                       }
+                      loading="lazy"
                     />
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
@@ -277,6 +287,8 @@ export default function GalleryClient() {
                 fill
                 className="object-contain"
                 sizes="90vw"
+                quality={90}
+                priority
               />
             </motion.div>
             <div className="absolute bottom-10 text-center">

@@ -71,7 +71,7 @@ export default function HomeAcademicsPreview() {
                 Academics
               </span>
             </div>
-            <h2 className="font-display mb-5 text-5xl leading-[1.05] font-bold text-foreground italic md:text-6xl">
+            <h2 className="mb-5 font-display text-5xl leading-[1.05] font-bold text-foreground italic md:text-6xl">
               World-Class
               <br />
               <span className="text-gradient-brand font-heading font-semibold not-italic">
@@ -137,7 +137,7 @@ export default function HomeAcademicsPreview() {
                   Outstanding Results
                 </div>
                 <div className="text-xs text-muted-foreground">
-                  98% WAEC pass rate · Class of 2025
+                  98% WAEC pass rate · Class of {new Date().getFullYear()}
                 </div>
               </div>
             </div>

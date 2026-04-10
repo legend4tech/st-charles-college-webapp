@@ -13,6 +13,7 @@ import {
   ArrowRight,
   ExternalLink,
 } from "lucide-react"
+import { getNextAcademicYear } from "@/lib/utils/date"
 
 const steps = [
   {
@@ -87,6 +88,7 @@ export default function AdmissionsClient() {
   const stepsRef = useRef(null)
   const reqRef = useRef(null)
   const faqRef = useRef(null)
+  const nextAcademicYear = getNextAcademicYear()
 
   const stepsInView = useInView(stepsRef, { once: true, margin: "-80px" })
   const reqInView = useInView(reqRef, { once: true, margin: "-80px" })
@@ -117,7 +119,7 @@ export default function AdmissionsClient() {
             <div className="mb-4 flex items-center gap-3">
               <span className="h-px w-6 bg-primary-foreground/60" />
               <span className="font-mono-custom text-[11px] tracking-[0.2em] text-primary-foreground/80 uppercase">
-                Academic Session 2026/2027
+                Academic Session {nextAcademicYear}
               </span>
             </div>
             <h1 className="font-display text-6xl leading-[0.95] font-bold text-primary-foreground italic md:text-8xl">
@@ -292,7 +294,8 @@ export default function AdmissionsClient() {
                       Applications Now Open
                     </div>
                     <div className="mt-1 text-xs text-primary-foreground/85">
-                      2026/2027 Academic Session — Limited spaces available
+                      {nextAcademicYear} Academic Session — Limited spaces
+                      available
                     </div>
                     <Link
                       href="https://scc.istudent.com.ng/admission/"

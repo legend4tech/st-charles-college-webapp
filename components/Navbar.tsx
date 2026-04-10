@@ -7,6 +7,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { useTheme } from "next-themes"
+import { getCurrentCopyrightYear } from "@/lib/utils/date"
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -62,6 +63,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
   const prevPathnameRef = useRef(pathname)
+  const currentYear = getCurrentCopyrightYear()
 
   // Handle scroll effect
   useEffect(() => {
@@ -326,7 +328,7 @@ export default function Navbar() {
                     </div>
                   </div>
                   <p className="mt-2 text-center text-[10px] text-muted-foreground">
-                    © 2024 St. Charles&apos; College, Onitsha
+                    © {currentYear} St. Charles&apos; College, Onitsha
                   </p>
                 </div>
               </div>
